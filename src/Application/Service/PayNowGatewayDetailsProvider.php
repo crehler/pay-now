@@ -84,10 +84,10 @@ final readonly class PayNowGatewayDetailsProvider implements GatewayPaymentDetai
         // PayNowPaymentStatusProvider so the details view never disagrees with the
         // status that actually transitions the order (CANCEL is a failure here too).
         return match (strtoupper($status)) {
-            'CONFIRMED' => GatewayStatusLevel::PAID,
-            'NEW', 'PENDING' => GatewayStatusLevel::PENDING,
-            'REJECTED', 'CANCEL', 'ERROR', 'EXPIRED', 'ABANDONED' => GatewayStatusLevel::FAILED,
-            default => GatewayStatusLevel::UNKNOWN,
+            'CONFIRMED' => GatewayStatusLevel::PAID->value,
+            'NEW', 'PENDING' => GatewayStatusLevel::PENDING->value,
+            'REJECTED', 'CANCEL', 'ERROR', 'EXPIRED', 'ABANDONED' => GatewayStatusLevel::FAILED->value,
+            default => GatewayStatusLevel::UNKNOWN->value,
         };
     }
 }

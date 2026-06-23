@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.0.1
+
+### Fixed
+
+- **Admin order detail — gateway transaction details.** `PayNowGatewayDetailsProvider::mapLevel()`
+  returned a `GatewayStatusLevel` enum case from a method typed `: string`, causing a `TypeError`
+  so the gateway-details tab failed with „Nie udało się pobrać szczegółów transakcji z bramki".
+  It now returns the enum's string value.
+
 ## 6.0.0
 
 First public release on `crehler/pay-now`.
