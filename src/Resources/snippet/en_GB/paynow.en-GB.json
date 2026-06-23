@@ -1,0 +1,25 @@
+{
+    "paynow": {
+        "checkoutConfirmSelectedLabel": "Selected bank",
+        "checkoutConfirmChangeLabel": "Change bank",
+        "checkoutConfirmCancelChangeLabel": "Cancel bank change",
+        "checkPayment": {
+            "waitingText": "Waiting for payment confirmation...",
+            "successText": "Payment has been confirmed",
+            "failText": "Payment waiting time has expired",
+            "changePaymentMethod": "Select another bank or change payment method"
+        },
+        "checkout": {
+            "additionalConsent": "I accept the additional terms and conditions"
+        },
+        "card": {
+            "title": "Card payment",
+            "redirectInfo": "After clicking 'Order and pay' you will be redirected to the secure PayNow page",
+            "savedCards": "Saved cards",
+            "selectSavedCard": "Select a saved card",
+            "useNewCard": "Use a new card",
+            "saveCard": "Save card for future use",
+            "securePayment": "Secure SSL encrypted payment"
+        }
+    }
+} 

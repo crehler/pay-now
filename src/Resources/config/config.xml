@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Addresses for the PayNow panel</title>
+        <title lang="pl-PL">Adresy do panelu PayNow</title>
+        <title lang="de-DE">Adressen für das PayNow-Panel</title>
+        <component name="cr-paynow-callback-urls">
+            <name>callbackUrls</name>
+        </component>
+    </card>
+    <card>
+        <title>Production credentials</title>
+        <title lang="pl-PL">Dane produkcyjne</title>
+        <title lang="de-DE">Produktionsdaten</title>
+        <input-field type="password">
+            <name>apiKey</name>
+            <label>API Key</label>
+            <label lang="pl-PL">Klucz dostępu do API</label>
+            <label lang="de-DE">API-Schlüssel</label>
+        </input-field>
+        <input-field type="password">
+            <name>signatureKeyLabel</name>
+            <label>Signature key</label>
+            <label lang="pl-PL">Klucz obliczania podpisu</label>
+            <label lang="de-DE">Signaturschlüssel</label>
+        </input-field>
+        <component name="cr-payment-test-connection">
+            <name>liveCheckCredentials</name>
+        </component>
+    </card>
+    <card>
+        <title>Sandbox credentials</title>
+        <title lang="pl-PL">Dane sandbox</title>
+        <title lang="de-DE">Sandbox-Daten</title>
+        <input-field type="bool">
+            <name>enableSandbox</name>
+            <label>Sandbox mode</label>
+            <label lang="pl-PL">Tryb sandbox</label>
+            <label lang="de-DE">Sandbox-Modus</label>
+            <helpText>When enabled, the sandbox credentials below are used instead of the production ones.</helpText>
+            <helpText lang="pl-PL">Gdy włączone, używane są dane sandbox poniżej zamiast produkcyjnych.</helpText>
+            <helpText lang="de-DE">Wenn aktiviert, werden die untenstehenden Sandbox-Daten anstelle der Produktionsdaten verwendet.</helpText>
+        </input-field>
+        <input-field type="password">
+            <name>sandboxApiKey</name>
+            <label>API Key (sandbox)</label>
+            <label lang="pl-PL">Klucz dostępu do API (sandbox)</label>
+            <label lang="de-DE">API-Schlüssel (Sandbox)</label>
+        </input-field>
+        <input-field type="password">
+            <name>sandboxSignatureKeyLabel</name>
+            <label>Signature key (sandbox)</label>
+            <label lang="pl-PL">Klucz obliczania podpisu (sandbox)</label>
+            <label lang="de-DE">Signaturschlüssel (Sandbox)</label>
+        </input-field>
+        <component name="cr-payment-test-connection">
+            <name>sandboxCheckCredentials</name>
+        </component>
+    </card>
+</config>

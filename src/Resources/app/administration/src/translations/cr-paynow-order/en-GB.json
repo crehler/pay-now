@@ -1,0 +1,40 @@
+{
+  "pay-now-order": {
+    "general": {
+      "title": "paynow",
+      "differentPaymentMethod": "Transaction was not handled by paynow",
+      "description": "manage paynow",
+      "orderListLabel": "refund",
+      "generalCardTitle": "General",
+      "overviewLabelPaynowID": "paynow ID:",
+      "overviewLabelPaynowStatus": "paynow status:",
+      "overviewLabelPaynowPaymentAddress": "Payment address:",
+      "overviewLabelPaynowDeliveryAddress": "Delivery address:"
+    },
+    "buttons": {
+      "buttonRefund": "Refund",
+      "buttonFetchOrderStatus": "Get status",
+      "buttonPrepareRefund": "Prepare payment"
+    },
+    "errors": {
+      "refusedRefund" : "paynow has rejected refund",
+      "toMuch": "Amount of refund exceeded amount of order",
+      "minimalAmount": "Amount of refund must be greater than 1zł"
+    },
+    "modal": {
+      "refundAmount": "Refund amount:",
+      "refundDescription": "Description of refund:"
+    },
+    "notification": {
+      "success": "Refund request accepted",
+      "failure": "Refund request denied. Check you account balance and contact paynow service",
+      "alert": "Order amount exceeded",
+      "testSucces": "Connection to paynow established",
+      "testError": "Error - check your credentials"
+    },
+    "url": {
+      "notification": "Notification url:",
+      "return": "Return url:"
+    }
+  }
+}

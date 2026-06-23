@@ -1,0 +1,10 @@
+{% sw_extends '@Storefront/storefront/page/checkout/finish/finish-details.html.twig' %}
+
+{% block page_checkout_finish_header %}
+    {{ parent() }}
+    {% sw_include '@CrehlerPaymentBundle/storefront/component/payment/check-payment.html.twig' with {
+        paymentMethodName: 'paynow',
+        imgPath: asset('icons/paynow_logo.svg', '@CrehlerPayNow'),
+        altImg: 'PayNow logo'
+    } %}
+{% endblock %}

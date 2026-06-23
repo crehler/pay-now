@@ -1,0 +1,30 @@
+{% block cr_paynow_callback_urls %}
+<div class="cr-paynow-callback-urls">
+    <p class="cr-paynow-callback-urls__intro">{{ $tc('cr-paynow.callbackUrls.intro') }}</p>
+
+    <div v-for="item in urls" :key="item.key" class="cr-paynow-callback-urls__row">
+        <label class="cr-paynow-callback-urls__label">{{ item.label }}</label>
+        <div class="cr-paynow-callback-urls__field">
+            <input
+                type="text"
+                class="cr-paynow-callback-urls__input"
+                readonly
+                :value="item.value"
+                @focus="$event.target.select()"
+            >
+            <button
+                type="button"
+                class="cr-paynow-callback-urls__copy"
+                @click="onCopy(item.value)"
+            >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                </svg>
+                <span>{{ $tc('cr-paynow.callbackUrls.copy') }}</span>
+            </button>
+        </div>
+        <p class="cr-paynow-callback-urls__help">{{ item.help }}</p>
+    </div>
+</div>
+{% endblock %}

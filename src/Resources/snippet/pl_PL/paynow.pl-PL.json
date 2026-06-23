@@ -1,0 +1,22 @@
+{
+  "paynow": {
+    "checkoutConfirmSelectedLabel": "Wybrany bank",
+    "checkoutConfirmChangeLabel": "Zmień bank",
+    "checkoutConfirmCancelChangeLabel": "Anuluj zmianę banku",
+    "checkPayment": {
+      "waitingText": "Oczekiwanie na potwierdzenie płatności...",
+      "successText": "Płatność została potwierdzona",
+      "failText": "Upłynął czas oczekiwania na płatność",
+      "changePaymentMethod": "Wybierz inny bank lub zmień metodę płatności"
+    },
+    "card": {
+      "title": "Płatność kartą",
+      "redirectInfo": "Po kliknięciu 'Zamawiam i płacę' zostaniesz przekierowany do bezpiecznej strony PayNow",
+      "savedCards": "Zapisane karty",
+      "selectSavedCard": "Wybierz zapisaną kartę",
+      "useNewCard": "Użyj nowej karty",
+      "saveCard": "Zapisz kartę na przyszłość",
+      "securePayment": "Bezpieczna płatność szyfrowana SSL"
+    }
+  }
+}

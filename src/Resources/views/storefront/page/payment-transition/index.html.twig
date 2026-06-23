@@ -1,0 +1,13 @@
+{% sw_extends '@CrehlerPaymentBundle/storefront/page/payment-transition/index.html.twig' %}
+
+{# Renders the PayNow logo on the shared transition page, from PayNow's OWN asset
+   package (@CrehlerPayNow). Guarded on providerLogo == 'paynow' and delegating to
+   parent() otherwise, so this override composes with other providers' overrides and
+   never shows the PayNow logo for a different gateway. #}
+{% block cr_payment_transition_provider_logo %}
+    {% if providerLogo == 'paynow' %}
+        <img src="{{ asset('icons/paynow_bank.png', '@CrehlerPayNow') }}" alt="PayNow" class="payment-provider-logo">
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}

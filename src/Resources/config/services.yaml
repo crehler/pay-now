@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Crehler\PayNow\:
+        resource: '../../../src/'
+        exclude:
+            - '../../../src/Constant/'
+            - '../../../src/Dto/'
+            - '../../../src/Enums/'
+            - '../../../src/Exception/'
+            - '../../../src/Migration/'

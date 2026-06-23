@@ -1,0 +1,70 @@
+site_name: Bramka płatności PayNow by CREHLER — dokumentacja
+site_description: Integracja bramki płatniczej PayNow (mBank) ze sklepem Shopware 6 (by CREHLER).
+site_author: Crehler Sp. z o.o.
+site_url: https://crehler.github.io/pay-now/
+
+# Publiczny mirror produkcyjny.
+repo_url: https://github.com/crehler/pay-now
+repo_name: crehler/pay-now
+
+docs_dir: docs
+
+nav:
+  - Start: index.md
+  - Instalacja: instalacja.md
+  - Konfiguracja: konfiguracja.md
+  - Store API (headless): store-api.md
+  - Zwroty płatności: zwroty.md
+
+theme:
+  name: material
+  language: pl
+  logo: images/paynow_logo.png
+  favicon: images/paynow_logo.png
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Tryb ciemny
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/weather-sunny
+        name: Tryb jasny
+  features:
+    - navigation.instant
+    - navigation.top
+    - navigation.tracking
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+    - toc.follow
+
+plugins:
+  - search:
+      lang: pl
+
+markdown_extensions:
+  - tables
+  - attr_list
+  - md_in_html
+  - admonition
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+
+extra:
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://crehler.com/
+      name: crehler.com
+
+copyright: © Crehler Sp. z o.o.

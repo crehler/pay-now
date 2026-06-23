@@ -1,0 +1,77 @@
+{% sw_extends '@CrehlerPaymentBundle/storefront/component/payment/payment-form.html.twig' %}
+
+{% block crehler_payment_method_card_form %}
+    {# Validate this is PayNow card handler #}
+    {% if selectedCardPayment and 'PayNow' in selectedCardPayment.handlerIdentifier %}
+        {% set savedCards = selectedCardPayment.extensions[constant('Crehler\\PaymentBundle\\Infrastructure\\StoreApi\\CustomerSavedCard\\SavedCardTokenResponse::API_ALIAS')]|default(null) %}
+
+        {% set options = {
+            fingerprintScriptUrl: 'https://static.paynow.pl/scripts/PyG5QjFDUI.min.js'
+        } %}
+
+        <div class="paynow-card-payment-container"
+             data-paynow-card-tokenization="true"
+             data-paynow-card-tokenization-options='{{ options|json_encode }}'
+             data-saved-card-selector="true">
+
+            <div class="paynow-card-form-header">
+                <img src="{{ asset('bundles/crehlerpaynowpayment/icons/mastercard.svg') }}" alt="Mastercard" class="paynow-card-brand-icon" onerror="this.style.display='none'">
+                <img src="{{ asset('bundles/crehlerpaynowpayment/icons/visa.svg') }}" alt="Visa" class="paynow-card-brand-icon" onerror="this.style.display='none'">
+                <span class="paynow-card-form-title">{{ "paynow.card.title"|trans|default("Platnosc karta") }}</span>
+            </div>
+
+            <div class="paynow-card-info">
+                {% sw_icon 'external-link' style { size: 'xs' } %}
+                <span>{{ "paynow.card.redirectInfo"|trans|default("Po kliknieciu 'Zamawiam i place' zostaniesz przekierowany do bezpiecznej strony PayNow") }}</span>
+            </div>
+
+            {# Saved cards dropdown — shared markup from CrehlerPaymentBundle #}
+            {% if savedCards is not empty %}
+                {% sw_include '@CrehlerPaymentBundle/storefront/component/payment/saved-cards-dropdown.html.twig' with {
+                    savedCards: savedCards,
+                    wrapperClass: 'paynow-saved-cards',
+                    labelClass: 'paynow-saved-cards-label',
+                    labelText: "paynow.card.savedCards"|trans|default("Zapisane karty"),
+                    placeholderText: "paynow.card.selectSavedCard"|trans|default("Wybierz zapisana karte"),
+                    placeholderIcon: 'credit-card',
+                    showNewCardOption: true,
+                    newCardText: "paynow.card.useNewCard"|trans|default("Uzyj nowej karty"),
+                    newCardClass: 'paynow-new-card-option',
+                } only %}
+            {% endif %}
+
+            {# Save card checkbox #}
+            <div class="paynow-save-card" data-save-card-wrapper>
+                <input id="paynowSaveCard"
+                       type="checkbox"
+                       name="paynowSaveCard"
+                       class="form-check-input"
+                       form="confirmOrderForm">
+                <label for="paynowSaveCard">
+                    {{ "paynow.card.saveCard"|trans|default("Zapisz karte na przyszlosc") }}
+                </label>
+            </div>
+
+            {# Hidden inputs for form submission #}
+            <input type="hidden"
+                   name="paynowCardToken"
+                   id="paynowCardToken"
+                   data-saved-card-token
+                   form="confirmOrderForm"
+                   value="">
+
+            <input type="hidden"
+                   name="paynowVisitorId"
+                   id="paynowVisitorId"
+                   class="paynow-visitor-id"
+                   form="confirmOrderForm"
+                   value="">
+
+            {# Security info #}
+            <div class="paynow-security-info">
+                {% sw_icon 'lock' style { size: 'xs' } %}
+                <span>{{ "paynow.card.securePayment"|trans|default("Bezpieczna platnosc szyfrowana SSL") }}</span>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

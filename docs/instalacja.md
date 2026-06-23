@@ -1,0 +1,72 @@
+<p align="center">
+  <img src="images/paynow_logo.png" alt="PayNow" height="56">
+</p>
+
+<h1 align="center">Instrukcja instalacji</h1>
+
+<p align="center">Wtyczkę <strong>Bramka płatności PayNow by CREHLER</strong> zainstalujesz na dwa sposoby: przez Composer albo z paczki ZIP.</p>
+
+---
+
+## Wymagania
+
+| Komponent | Wersja |
+|---|---|
+| Shopware | 6.6.x lub 6.7.x |
+| PHP | 8.2, 8.3, 8.4 lub 8.5 |
+| Konto PayNow | aktywne, z dostępem do kluczy API (Klucz API + Klucz obliczania podpisu) |
+| Waluta | sklep musi obsługiwać **PLN** |
+
+---
+
+## Metoda 1 — Composer (zalecana)
+
+**1. Zainstaluj wtyczkę:**
+
+```bash
+composer require crehler/pay-now
+```
+
+**2. Aktywuj w Shopware:**
+
+```bash
+bin/console plugin:refresh
+bin/console plugin:install --activate CrehlerPayNow
+bin/console cache:clear
+```
+
+**3.** Wtyczka pojawi się w **Rozszerzenia → Moje rozszerzenia** jako *„Bramka płatności PayNow by CREHLER"*.
+
+➡️ Przejdź do **[Instrukcji konfiguracji](konfiguracja.md)**.
+
+---
+
+## Metoda 2 — Paczka ZIP
+
+**1.** Pobierz wtyczkę **[CrehlerPayNow.zip](https://github.com/crehler/pay-now/releases/latest/download/CrehlerPayNow.zip)**.
+
+**2.** W **Rozszerzenia → Moje rozszerzenia** kliknij **„Prześlij rozszerzenie"**.
+
+![Moje rozszerzenia — przycisk „Prześlij rozszerzenie"](images/16-zip-open.png)
+
+**3.** Potwierdź ostrzeżenie o rozszerzeniu spoza Sklepu Shopware — kliknij **„potwierdź"**.
+
+![Ostrzeżenie o rozszerzeniu spoza Sklepu Shopware z przyciskiem „potwierdź"](images/17-zip-warning.png)
+
+**4.** Wskaż pobrany plik **`CrehlerPayNow.zip`**.
+
+![Okno wyboru pliku z zaznaczonym CrehlerPayNow.zip](images/18-zip-select.png)
+
+**5.** Wtyczka pojawi się na liście jako *„Bramka płatności PayNow by CREHLER"* — kliknij **„Zainstaluj"**, a następnie **„Aktywuj"**.
+
+![Wtyczka „Bramka płatności PayNow by CREHLER" na liście Moje rozszerzenia z przyciskiem „Zainstaluj"](images/19-zip-install.png)
+
+➡️ Przejdź do **[Instrukcji konfiguracji](konfiguracja.md)**.
+
+---
+
+## Wsparcie
+
+Problem z instalacją? Napisz do nas: **[support@crehler.com](mailto:support@crehler.com)**
+
+<p align="center"><sub>Bramka płatności <strong>PayNow by CREHLER</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>

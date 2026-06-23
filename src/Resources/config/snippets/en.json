@@ -1,0 +1,15 @@
+{
+    "paynow": {
+        "blik": {
+            "waiting": {
+                "title": "Waiting for BLIK confirmation",
+                "instruction": "Please confirm the payment in your banking application",
+                "check_phone": "Check your phone and accept the BLIK payment",
+                "order_number": "Order number",
+                "amount": "Amount to pay",
+                "time": "You have 2 minutes to confirm the payment",
+                "back_to_shop": "Back to shop"
+            }
+        }
+    }
+}

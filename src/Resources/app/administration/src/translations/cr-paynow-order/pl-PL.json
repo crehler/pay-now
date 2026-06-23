@@ -1,0 +1,40 @@
+{
+  "pay-now-order": {
+    "general": {
+      "title": "paynow",
+      "differentPaymentMethod": "Zamówienie nie zostało obsłużone za pomocą płatności paynow",
+      "orderListLabel": "zwrot",
+      "description": "Zarządzaj paynow",
+      "generalCardTitle": "General",
+      "overviewLabelPaynowID": "paynow ID:",
+      "overviewLabelPaynowStatus": "paynow status:",
+      "overviewLabelPaynowPaymentAddress": "Adres płatności:",
+      "overviewLabelPaynowDeliveryAddress": "Adres dostawy:"
+    },
+    "buttons": {
+      "buttonRefund": "Zwrot",
+      "buttonFetchOrderStatus": "Pobierz status",
+      "buttonPrepareRefund": "Przygotuj zwrot"
+    },
+    "errors": {
+      "refusedRefund" : "paynow odrzucił zwrot",
+      "toMuch": "Kwota do zwrotu przewyższa kwotę zamówienia",
+      "minimalAmount": "Minimalna kwota do zwrotu to 1zł"
+    },
+    "modal": {
+      "refundAmount": "Kwota zwrotu:",
+      "refundDescription": "Opis zwrotu:"
+    },
+    "notification": {
+      "success": "Przyjęto wniosek o zwrot",
+      "failure": "Zwrot odrzucony. Proszę sprawdzić stan konta lub skontaktować się z obsługą PayNow",
+      "alert": "Przekroczono ilość z zamówienia",
+      "testSucces": "Próba połączenia wykonana pomyślnie",
+      "testError": "Błąd - sprawdź klucze"
+    },
+    "url": {
+      "notification": "Url do notyfikacji (notification url):",
+      "return": "Powrotny url (return url):"
+    }
+  }
+}

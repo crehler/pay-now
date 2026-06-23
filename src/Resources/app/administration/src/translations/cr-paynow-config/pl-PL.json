@@ -1,0 +1,14 @@
+{
+    "cr-paynow": {
+        "callbackUrls": {
+            "intro": "Skopiuj poniższe adresy i wklej je w panelu PayNow (Ustawienia → Sklepy i punkty płatności → konfiguracja sklepu). Są budowane automatycznie na podstawie adresu Twojego sklepu.",
+            "notificationLabel": "Adres powiadomień (notyfikacji)",
+            "notificationHelp": "Webhook, na który PayNow wysyła statusy płatności. Wymagany, aby zamówienia automatycznie zmieniały status na opłacone.",
+            "returnLabel": "Adres powrotu",
+            "returnHelp": "Adres, na który klient wraca ze strony PayNow po zakończeniu płatności.",
+            "copy": "Kopiuj",
+            "copied": "Skopiowano do schowka",
+            "copyError": "Nie udało się skopiować — skopiuj adres ręcznie"
+        }
+    }
+}

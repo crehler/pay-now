@@ -1,0 +1,25 @@
+{
+  "base": "/bundles/crehlerpaynow/administration/",
+  "entryPoints": {
+    "crehler-pay-now": {
+      "css": [
+        "/bundles/crehlerpaynow/administration/css/crehler-pay-now.css"
+      ],
+      "dynamic": [],
+      "js": [
+        "/bundles/crehlerpaynow/administration/js/crehler-pay-now.js"
+      ],
+      "legacy": false,
+      "preload": []
+    }
+  },
+  "legacy": false,
+  "metadatas": {},
+  "version": [
+    "7.0.4",
+    7,
+    0,
+    4
+  ],
+  "viteServer": null
+}

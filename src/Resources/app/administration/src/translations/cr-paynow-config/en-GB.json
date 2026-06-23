@@ -1,0 +1,14 @@
+{
+    "cr-paynow": {
+        "callbackUrls": {
+            "intro": "Copy the addresses below and paste them into the PayNow merchant panel (Settings → Shops and payment points → shop configuration). They are built automatically from your shop URL.",
+            "notificationLabel": "Notification address",
+            "notificationHelp": "Webhook that PayNow calls with payment statuses. Required for orders to be marked as paid automatically.",
+            "returnLabel": "Return address",
+            "returnHelp": "Address the customer returns to from the PayNow page after finishing the payment.",
+            "copy": "Copy",
+            "copied": "Copied to clipboard",
+            "copyError": "Copy failed — please copy the address manually"
+        }
+    }
+}
