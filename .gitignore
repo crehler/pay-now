@@ -4,3 +4,7 @@
 
 # Build artifact (shopware-cli storefront-admin entry) — regenerowany przy buildzie
 /src/Storefront/Resources/
+
+# macOS
+.DS_Store
+**/.DS_Store

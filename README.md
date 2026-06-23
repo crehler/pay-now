@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="src/Resources/public/icons/paynow_logo.png" alt="PayNow" height="80">
+  <img src="src/Resources/public/icons/paynow_logo.png" alt="PayNow" height="120">
 </p>
 
 <h1 align="center">PayNow dla Shopware 6 — by CREHLER</h1>
