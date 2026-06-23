@@ -1,6 +1,0 @@
-/.php-cs-fixer.cache
-/.creon/
-/.claude/
-
-# Build artifact (shopware-cli storefront-admin entry) — regenerowany przy buildzie
-/src/Storefront/Resources/
