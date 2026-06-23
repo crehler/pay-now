@@ -1,0 +1,1333 @@
+
+<!doctype html>
+<html lang="pl" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Integracja bramki płatniczej PayNow (mBank) ze sklepem Shopware 6 (by CREHLER).">
+      
+      
+        <meta name="author" content="Crehler Sp. z o.o.">
+      
+      
+        <link rel="canonical" href="https://crehler.github.io/pay-now/konfiguracja/">
+      
+      
+        <link rel="prev" href="../instalacja/">
+      
+      
+        <link rel="next" href="../store-api/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../images/paynow_logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Konfiguracja - Bramka płatności PayNow by CREHLER — dokumentacja</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#zanim-zaczniesz" class="md-skip">
+          Przejdź do treści
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Nagłówek">
+    <a href=".." title="Bramka płatności PayNow by CREHLER — dokumentacja" class="md-header__button md-logo" aria-label="Bramka płatności PayNow by CREHLER — dokumentacja" data-md-component="logo">
+      
+  <img src="../images/paynow_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Bramka płatności PayNow by CREHLER — dokumentacja
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Konfiguracja
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Tryb ciemny"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Tryb ciemny" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Tryb jasny"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Tryb jasny" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Szukaj" placeholder="Szukaj" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Szukaj">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Wyczyść" aria-label="Wyczyść" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicjowanie wyszukiwania
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/crehler/pay-now" title="Przejdź do repozytorium" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crehler/pay-now
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Nawigacja" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Bramka płatności PayNow by CREHLER — dokumentacja" class="md-nav__button md-logo" aria-label="Bramka płatności PayNow by CREHLER — dokumentacja" data-md-component="logo">
+      
+  <img src="../images/paynow_logo.png" alt="logo">
+
+    </a>
+    Bramka płatności PayNow by CREHLER — dokumentacja
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/crehler/pay-now" title="Przejdź do repozytorium" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    crehler/pay-now
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Start
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instalacja/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalacja
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Konfiguracja
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Konfiguracja
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Spis treści">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Spis treści
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zanim-zaczniesz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zanim zaczniesz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-1-pobierz-dane-z-panelu-paynow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 1 — Pobierz dane z panelu PayNow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Krok 1 — Pobierz dane z panelu PayNow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1a-klucz-api-i-klucz-obliczania-podpisu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1a. Klucz API i Klucz obliczania podpisu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-2-wpisz-dane-w-konfiguracji-wtyczki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 2 — Wpisz dane w konfiguracji wtyczki
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Krok 2 — Wpisz dane w konfiguracji wtyczki">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2a-dane-produkcyjne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2a. Dane produkcyjne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2b-dane-sandbox-do-testow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2b. Dane sandbox (do testów)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2c-przetestuj-dane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2c. Przetestuj dane
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-3-uzupenij-adresy-w-panelu-paynow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 3 — Uzupełnij adresy w panelu PayNow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-4-przypisz-patnosci-do-kanau-sprzedazy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 4 — Przypisz płatności do kanału sprzedaży
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Krok 4 — Przypisz płatności do kanału sprzedaży">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3a-aktywuj-metody-patnosci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3a. Aktywuj metody płatności
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3b-dodaj-metody-do-kanau-sprzedazy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3b. Dodaj metody do kanału sprzedaży
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-5-konfiguracja-patnosci-karta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 5 — Konfiguracja płatności kartą
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Krok 5 — Konfiguracja płatności kartą">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jak-przebiega-patnosc-karta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak przebiega płatność kartą
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zapisane-karty-tokeny" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zapisane karty (tokeny)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-6-test-patnosci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 6 — Test płatności
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dane-testowe-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dane testowe (sandbox)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dane testowe (sandbox)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blik-kody-testowe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BLIK — kody testowe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#karta-numer-testowy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Karta — numer testowy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#przelew-pay-by-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Przelew (pay-by-link)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#powiazane-artykuy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Powiązane artykuły
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsparcie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wsparcie
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../store-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Store API (headless)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../zwroty/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zwroty płatności
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Spis treści">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Spis treści
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zanim-zaczniesz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zanim zaczniesz
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-1-pobierz-dane-z-panelu-paynow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 1 — Pobierz dane z panelu PayNow
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Krok 1 — Pobierz dane z panelu PayNow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1a-klucz-api-i-klucz-obliczania-podpisu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1a. Klucz API i Klucz obliczania podpisu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-2-wpisz-dane-w-konfiguracji-wtyczki" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 2 — Wpisz dane w konfiguracji wtyczki
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Krok 2 — Wpisz dane w konfiguracji wtyczki">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2a-dane-produkcyjne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2a. Dane produkcyjne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2b-dane-sandbox-do-testow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2b. Dane sandbox (do testów)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2c-przetestuj-dane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2c. Przetestuj dane
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-3-uzupenij-adresy-w-panelu-paynow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 3 — Uzupełnij adresy w panelu PayNow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-4-przypisz-patnosci-do-kanau-sprzedazy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 4 — Przypisz płatności do kanału sprzedaży
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Krok 4 — Przypisz płatności do kanału sprzedaży">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#3a-aktywuj-metody-patnosci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3a. Aktywuj metody płatności
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3b-dodaj-metody-do-kanau-sprzedazy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3b. Dodaj metody do kanału sprzedaży
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-5-konfiguracja-patnosci-karta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 5 — Konfiguracja płatności kartą
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Krok 5 — Konfiguracja płatności kartą">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jak-przebiega-patnosc-karta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak przebiega płatność kartą
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zapisane-karty-tokeny" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zapisane karty (tokeny)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krok-6-test-patnosci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 6 — Test płatności
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dane-testowe-sandbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dane testowe (sandbox)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dane testowe (sandbox)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blik-kody-testowe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BLIK — kody testowe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#karta-numer-testowy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Karta — numer testowy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#przelew-pay-by-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Przelew (pay-by-link)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#powiazane-artykuy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Powiązane artykuły
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wsparcie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wsparcie
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<p align="center">
+  <img src="images/paynow_logo.png" alt="PayNow" height="64">
+</p>
+
+<h1 align="center">PayNow dla Shopware 6 — instrukcja konfiguracji</h1>
+
+<p align="center">Bramka płatności PayNow by CREHLER — krok po kroku: od danych z panelu PayNow po gotowe płatności w sklepie.</p>
+
+<hr />
+<blockquote>
+<p>ℹ️ Instalację wtyczki (Composer lub ZIP) opisuje <strong><a href="../instalacja/">Instrukcja instalacji</a></strong>. Ten dokument zakłada, że wtyczka jest już zainstalowana i aktywna.</p>
+</blockquote>
+<hr />
+<h2 id="zanim-zaczniesz">Zanim zaczniesz<a class="headerlink" href="#zanim-zaczniesz" title="Permanent link">&para;</a></h2>
+<p>Potrzebujesz:</p>
+<ul>
+<li><strong>aktywnego konta PayNow</strong> z dostępem do kluczy API (do płatności produkcyjnych) lub <strong>konta sandbox</strong> (do testów),</li>
+<li>sklepu Shopware z kanałem sprzedaży obsługującym walutę <strong>PLN</strong>,</li>
+<li>zainstalowanej i aktywnej wtyczki <strong>Bramka płatności PayNow by CREHLER</strong>.</li>
+</ul>
+<blockquote>
+<p>💡 <strong>Najpierw testy.</strong> Zalecamy skonfigurowanie i przetestowanie płatności na danych <strong>sandbox</strong>, a dopiero potem przełączenie na produkcję.</p>
+</blockquote>
+<hr />
+<h2 id="krok-1-pobierz-dane-z-panelu-paynow">Krok 1 — Pobierz dane z panelu PayNow<a class="headerlink" href="#krok-1-pobierz-dane-z-panelu-paynow" title="Permanent link">&para;</a></h2>
+<p>Zaloguj się do panelu PayNow (<a href="https://panel.paynow.pl/">panel produkcyjny</a> lub <a href="https://panel.sandbox.paynow.pl/">panel sandbox</a>) i zbierz dwie wartości. Obie znajdziesz w ustawieniach sklepu — poniżej dokładna ścieżka.</p>
+<h3 id="1a-klucz-api-i-klucz-obliczania-podpisu">1a. Klucz API i Klucz obliczania podpisu<a class="headerlink" href="#1a-klucz-api-i-klucz-obliczania-podpisu" title="Permanent link">&para;</a></h3>
+<p>Panel PayNow → <strong>Ustawienia → Sklepy i punkty płatności</strong> → wybierz swój sklep. W szczegółach sklepu znajdziesz:</p>
+<ul>
+<li><strong>Klucz API</strong> (<code>Api-Key</code>) — identyfikuje sklep w żądaniach do PayNow,</li>
+<li><strong>Klucz obliczania podpisu</strong> (klucz do podpisu) — służy do wyliczania podpisu HMAC żądań i <strong>weryfikacji powiadomień</strong> (webhooków) o statusie płatności.</li>
+</ul>
+<p>Skopiuj obie wartości. Jeśli nie masz jeszcze kluczy, wygeneruj je w panelu PayNow.</p>
+<p><img alt="Panel PayNow, Ustawienia → Sklepy i punkty płatności — lista sklepów" src="../images/01-paynow-api-keys.png" /></p>
+<p><img alt="Panel PayNow — Klucz API oraz Klucz obliczania podpisu w szczegółach sklepu" src="../images/01b-paynow-api-keys.png" /></p>
+<blockquote>
+<p>⚠️ <strong>Klucz obliczania podpisu jest wymagany.</strong> Powiadomienia PayNow o statusie płatności są weryfikowane podpisem wyliczanym tym kluczem. Bez poprawnego klucza potwierdzenia płatności są odrzucane, a zamówienia pozostają nieopłacone.</p>
+<p>🧪 <strong>Sandbox:</strong> ten sam ekran istnieje w <a href="https://panel.sandbox.paynow.pl/">panelu sandbox PayNow</a> i daje osobne wartości (Klucz API / Klucz obliczania podpisu). Wpisuje się je w osobną kartę „Dane sandbox" w konfiguracji wtyczki.</p>
+</blockquote>
+<hr />
+<h2 id="krok-2-wpisz-dane-w-konfiguracji-wtyczki">Krok 2 — Wpisz dane w konfiguracji wtyczki<a class="headerlink" href="#krok-2-wpisz-dane-w-konfiguracji-wtyczki" title="Permanent link">&para;</a></h2>
+<p>W panelu Shopware przejdź do <strong>Rozszerzenia → Moje rozszerzenia</strong>, znajdź <strong>Bramka płatności PayNow by CREHLER</strong> (musi być włączona — przełącznik po lewej) i kliknij <strong>„Skonfiguruj"</strong>.</p>
+<p><img alt="Shopware: Rozszerzenia → Moje rozszerzenia — wtyczka Bramka płatności PayNow by CREHLER i przycisk „Skonfiguruj&quot;" src="../images/04-sw-extension-configure.png" /></p>
+<h3 id="2a-dane-produkcyjne">2a. Dane produkcyjne<a class="headerlink" href="#2a-dane-produkcyjne" title="Permanent link">&para;</a></h3>
+<p>Wypełnij kartę <strong>Dane produkcyjne</strong> wartościami z <strong>Kroku 1</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Pole w konfiguracji</th>
+<th>Wartość z panelu PayNow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Klucz dostępu do API</strong></td>
+<td>Klucz API (<code>Api-Key</code>)</td>
+</tr>
+<tr>
+<td><strong>Klucz obliczania podpisu</strong></td>
+<td>Klucz obliczania podpisu (klucz do podpisu)</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Konfiguracja wtyczki, karta Dane produkcyjne — Klucz dostępu do API, Klucz obliczania podpisu i przycisk testu połączenia" src="../images/05-config-production.png" /></p>
+<blockquote>
+<p>⚠️ <strong>Wybór kanału sprzedaży.</strong> U góry konfiguracji znajduje się przełącznik kanału sprzedaży. Ustawienia możesz zapisać globalnie („Wszystkie kanały sprzedaży") lub osobno dla wybranego kanału. Jeśli korzystasz z kilku kanałów z różnymi sklepami PayNow — ustaw dane per kanał.</p>
+<p>🛑 <strong>Test połączenia NIE zapisuje danych!</strong> Przycisk testu pod kartą jedynie sprawdza poprawność wpisanych kluczy — <strong>nie zapisuje ich</strong>. Aby zachować dane, po teście <strong>osobno kliknij „Zapisz"</strong> (prawy górny róg). Wyjście lub odświeżenie konfiguracji bez zapisania spowoduje utratę wpisanych danych.</p>
+</blockquote>
+<h3 id="2b-dane-sandbox-do-testow">2b. Dane sandbox (do testów)<a class="headerlink" href="#2b-dane-sandbox-do-testow" title="Permanent link">&para;</a></h3>
+<p>Aby płacić na koncie testowym, włącz <strong>Tryb sandbox</strong> i wypełnij kartę <strong>Dane sandbox</strong> danymi z <a href="https://panel.sandbox.paynow.pl/">panelu sandbox PayNow</a>. Gdy tryb sandbox jest włączony, wtyczka używa danych sandbox zamiast produkcyjnych.</p>
+<p><img alt="Konfiguracja wtyczki, karta Dane sandbox — włączony przełącznik Tryb sandbox, pola sandbox i przycisk testu połączenia" src="../images/06-config-sandbox.png" /></p>
+<blockquote>
+<p>🛑 <strong>Test połączenia NIE zapisuje danych!</strong> Tak samo jak przy danych produkcyjnych — przycisk testu tylko weryfikuje klucze sandbox. Aby je zachować, po teście <strong>osobno kliknij „Zapisz"</strong> (prawy górny róg).</p>
+</blockquote>
+<h3 id="2c-przetestuj-dane">2c. Przetestuj dane<a class="headerlink" href="#2c-przetestuj-dane" title="Permanent link">&para;</a></h3>
+<p>Pod każdą kartą znajduje się przycisk testu połączenia. Kliknij go po wpisaniu danych — wtyczka połączy się z PayNow i potwierdzi, że klucze są poprawne.</p>
+<blockquote>
+<p>🛑 <strong>Pamiętaj: test to nie zapis.</strong> Kliknięcie przycisku testu <strong>nie zapisuje</strong> wpisanych danych — sprawdza je tylko. Dopiero <strong>„Zapisz"</strong> (prawy górny róg) utrwala konfigurację. Wykonaj zapis osobno po udanym teście, zarówno dla danych produkcyjnych, jak i sandbox.</p>
+</blockquote>
+<p><img alt="Komunikat sukcesu po teście połączenia — potwierdzenie poprawnych danych" src="../images/07-config-test-connection.png" /></p>
+<hr />
+<h2 id="krok-3-uzupenij-adresy-w-panelu-paynow">Krok 3 — Uzupełnij adresy w panelu PayNow<a class="headerlink" href="#krok-3-uzupenij-adresy-w-panelu-paynow" title="Permanent link">&para;</a></h2>
+<p>PayNow musi wiedzieć, <strong>dokąd wysyłać powiadomienia</strong> o statusie płatności i <strong>dokąd wraca klient</strong> po płatności. Oba adresy wtyczka <strong>wylicza automatycznie</strong> na podstawie adresu Twojego sklepu i pokazuje w konfiguracji wtyczki w karcie <strong>„Adresy do panelu PayNow"</strong> (na górze konfiguracji) — jako pola tylko do odczytu, z przyciskiem <strong>„Kopiuj"</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Adres</th>
+<th>Wartość (przykład)</th>
+<th>Gdzie wkleić w panelu PayNow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Adres powiadomień (notyfikacji)</strong></td>
+<td><code>https://twoj-sklep.pl/payment/notification</code></td>
+<td>pole adresu powiadomień / webhooka w konfiguracji sklepu</td>
+</tr>
+<tr>
+<td><strong>Adres powrotu</strong></td>
+<td><code>https://twoj-sklep.pl</code></td>
+<td>pole adresu powrotu</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Konfiguracja wtyczki, karta „Adresy do panelu PayNow&quot; — Adres powiadomień i Adres powrotu z przyciskami „Kopiuj&quot;" src="../images/20-config-callback-urls.png" /></p>
+<p><strong>Jak to zrobić:</strong></p>
+<ol>
+<li>W konfiguracji wtyczki (Krok 2), w karcie <strong>„Adresy do panelu PayNow"</strong>, skopiuj oba adresy przyciskiem <strong>„Kopiuj"</strong>.</li>
+<li>Zaloguj się do panelu PayNow → <strong>Ustawienia → Sklepy i punkty płatności → konfiguracja sklepu</strong>.</li>
+<li>Wklej <strong>Adres powiadomień</strong> w pole adresu powiadomień/webhooka oraz <strong>Adres powrotu</strong> w pole adresu powrotu. Zapisz w panelu PayNow.</li>
+</ol>
+<p><img alt="Panel PayNow — pola Adres powiadomień i Adres powrotu w konfiguracji sklepu (adresy wklejone z konfiguracji wtyczki)" src="../images/21-paynow-panel-addresses.png" /></p>
+<blockquote>
+<p>⚠️ <strong>Adres powiadomień jest kluczowy.</strong> To na ten webhook PayNow wysyła potwierdzenie płatności — bez poprawnie ustawionego adresu zamówienia <strong>nie zmienią statusu na „Opłacone"</strong>, nawet jeśli klient faktycznie zapłaci.</p>
+</blockquote>
+<hr />
+<h2 id="krok-4-przypisz-patnosci-do-kanau-sprzedazy">Krok 4 — Przypisz płatności do kanału sprzedaży<a class="headerlink" href="#krok-4-przypisz-patnosci-do-kanau-sprzedazy" title="Permanent link">&para;</a></h2>
+<p>Aby metody PayNow (BLIK, karta, przelew) były widoczne w checkout, muszą być <strong>aktywne</strong> i <strong>przypisane do kanału sprzedaży</strong>.</p>
+<h3 id="3a-aktywuj-metody-patnosci">3a. Aktywuj metody płatności<a class="headerlink" href="#3a-aktywuj-metody-patnosci" title="Permanent link">&para;</a></h3>
+<p><strong>Ustawienia → Metody płatności</strong> — upewnij się, że metody PayNow są aktywne (przełącznik <strong>„Aktywny"</strong>). Wtyczka dodaje trzy: <strong>Karta</strong>, <strong>BLIK</strong> i <strong>Przelew online</strong> — każda opisana „… Bramka płatności PayNow by CREHLER".</p>
+<p><img alt="Shopware: Ustawienia → Metody płatności — Karta, BLIK i Przelew online (PayNow) z włączonym przełącznikiem „Aktywny&quot;" src="../images/08-sw-payment-methods.png" /></p>
+<h3 id="3b-dodaj-metody-do-kanau-sprzedazy">3b. Dodaj metody do kanału sprzedaży<a class="headerlink" href="#3b-dodaj-metody-do-kanau-sprzedazy" title="Permanent link">&para;</a></h3>
+<p>W menu po lewej (sekcja <strong>Kanały sprzedaży</strong>) wybierz swój kanał (np. <strong>Crehler</strong>). W sekcji <strong>Płatność i wysyłka</strong> → pole <strong>Metody płatności</strong> dodaj metody PayNow, a w polu <strong>Standardowa metoda płatności</strong> możesz ustawić jedną z nich jako domyślną. Upewnij się też, że <strong>Standardowa waluta</strong> to <strong>Złoty (PLN)</strong>. Zapisz.</p>
+<p><img alt="Kanał sprzedaży Crehler, sekcja Płatność i wysyłka — metody Karta, BLIK, Przelew online (PayNow), Standardowa metoda płatności i Standardowa waluta Złoty" src="../images/09-sw-saleschannel-payments.png" /></p>
+<blockquote>
+<p>💡 Jeśli metoda nie pojawia się w checkout, sprawdź: czy jest aktywna (3a), czy dodana do kanału (3b), czy waluta koszyka to <strong>PLN</strong> oraz czy koszyk/kraj spełnia ewentualne reguły dostępności.</p>
+</blockquote>
+<hr />
+<h2 id="krok-5-konfiguracja-patnosci-karta">Krok 5 — Konfiguracja płatności kartą<a class="headerlink" href="#krok-5-konfiguracja-patnosci-karta" title="Permanent link">&para;</a></h2>
+<p>Płatność kartą w PayNow działa w modelu <strong>przekierowania do hostowanej strony PayNow</strong> — klient <strong>wpisuje dane karty (numer, datę, CVC) zawsze na bezpiecznej stronie PayNow</strong>, nigdy w checkout Twojego sklepu. Wtyczka dokłada przy tym do konfiguracji wspólną kartę <strong>Ustawienia wyświetlania</strong>, w której decydujesz o wyglądzie checkoutu.</p>
+<table>
+<thead>
+<tr>
+<th>Opcja</th>
+<th>Działanie</th>
+<th>Domyślnie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Osadź formularz karty w checkout</strong></td>
+<td>Wł.: w checkout pojawia się sekcja karty PayNow — wybór <strong>zapisanej karty</strong>, opcja <strong>„Zapisz kartę"</strong> i informacja o przekierowaniu. Wył.: klient od razu przechodzi ścieżką przekierowania. <strong>W obu wariantach dane karty wpisywane są na stronie PayNow</strong> — wtyczka nie renderuje pól numeru karty/CVC w sklepie.</td>
+<td>Wyłączone</td>
+</tr>
+<tr>
+<td><strong>Pozycja pola kodu BLIK</strong></td>
+<td>Gdzie pokazać pole na kod BLIK: <em>Na stronie potwierdzenia zamówienia</em> / <em>Na osobnej stronie po złożeniu</em> / <em>Ukryte (przekierowanie do bramki)</em>.</td>
+<td>Na stronie potwierdzenia</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Konfiguracja wtyczki, karta Ustawienia wyświetlania — przełącznik Osadź formularz karty w checkout oraz lista Pozycja pola kodu BLIK" src="../images/10-config-display-settings.png" /></p>
+<h3 id="jak-przebiega-patnosc-karta">Jak przebiega płatność kartą<a class="headerlink" href="#jak-przebiega-patnosc-karta" title="Permanent link">&para;</a></h3>
+<p>Po kliknięciu <strong>„Zamawiam i płacę"</strong> klient zostaje przekierowany na <strong>bezpieczną stronę PayNow</strong>, gdzie wpisuje dane karty i przechodzi ewentualne <strong>3-D Secure</strong>. Po zakończeniu wraca do sklepu, a status zamówienia aktualizuje się po potwierdzeniu od bramki.</p>
+<p>W tle wtyczka ładuje skrypt <strong>FingerprintJS PayNow</strong> (z <code>static.paynow.pl</code>), który wylicza identyfikator urządzenia używany przez PayNow do oceny ryzyka/antyfraudu. Skrypt <strong>nie przechwytuje danych karty</strong> — służy wyłącznie identyfikacji urządzenia.</p>
+<blockquote>
+<p>🔐 <strong>Zgodność (PCI DSS) — model w pełni hostowany.</strong> Ponieważ dane karty są wpisywane <strong>wyłącznie na stronie PayNow</strong> i nigdy nie trafiają do DOM ani na serwer Twojego sklepu, integracja działa w modelu <strong>w pełni hostowanym</strong> (redirect). To najniższy zakres wymogów PCI DSS — typowo <strong>SAQ A</strong>. W praktyce zadbaj jedynie o to, by sklep działał po <strong>HTTPS</strong>. (To inny model niż osadzony formularz karty renderowany w DOM sklepu, który wymagałby szerszego SAQ A-EP — PayNow tego nie stosuje.)</p>
+</blockquote>
+<h3 id="zapisane-karty-tokeny">Zapisane karty (tokeny)<a class="headerlink" href="#zapisane-karty-tokeny" title="Permanent link">&para;</a></h3>
+<p>Jeśli klient zaznaczy <strong>„Zapisz kartę"</strong>, PayNow zapamiętuje kartę jako <strong>token</strong> powiązany z kontem klienta. Przy kolejnych zakupach klient wybiera zapisaną kartę z listy w checkout — płatność nadal finalizuje się po stronie PayNow (token zamiast ponownego wpisywania danych).</p>
+<hr />
+<h2 id="krok-6-test-patnosci">Krok 6 — Test płatności<a class="headerlink" href="#krok-6-test-patnosci" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Włącz <strong>Tryb sandbox</strong> i zapisz konfigurację (Krok 2b).</li>
+<li>Dodaj produkt do koszyka (waluta <strong>PLN</strong>) i przejdź do checkout.</li>
+<li>Wybierz metodę PayNow (np. <strong>BLIK</strong>) i dokończ zamówienie zgodnie z instrukcjami konta testowego PayNow.</li>
+<li>Sprawdź w panelu Shopware, czy status płatności zamówienia zmienił się na <strong>Opłacone</strong> po potwierdzeniu.</li>
+</ol>
+<p><img alt="Checkout z zaznaczonym Przelew online i rozwiniętą listą banków pay-by-link" src="../images/12-storefront-checkout-methods.png" /></p>
+<blockquote>
+<p>↩️ <strong>Zwroty</strong> wykonasz później z poziomu zamówienia w panelu Shopware — pełne lub częściowe, bez logowania do panelu PayNow. Szczegóły: <a href="../zwroty/">Zwroty płatności</a>.</p>
+</blockquote>
+<hr />
+<h2 id="dane-testowe-sandbox">Dane testowe (sandbox)<a class="headerlink" href="#dane-testowe-sandbox" title="Permanent link">&para;</a></h2>
+<p>Środowisko sandbox PayNow pozwala przejść pełną ścieżkę płatności bez realnych pieniędzy. Konto sandbox założysz w <strong><a href="https://panel.sandbox.paynow.pl/">panel.sandbox.paynow.pl</a></strong> (wymaga potwierdzenia adresu e-mail). Status płatności w sandboxie wymuszasz <strong>konkretnym kodem BLIK, numerem karty lub kwotą</strong> — poniżej zestaw scenariuszy.</p>
+<h3 id="blik-kody-testowe">BLIK — kody testowe<a class="headerlink" href="#blik-kody-testowe" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Kod BLIK</th>
+<th>Wynik</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>111111</code></td>
+<td>płatność udana (sukces)</td>
+</tr>
+<tr>
+<td><code>222222</code></td>
+<td>status <strong>oczekujący</strong> (PENDING)</td>
+</tr>
+<tr>
+<td><code>333333</code></td>
+<td>odrzucona autoryzacja — nieprawidłowy kod</td>
+</tr>
+<tr>
+<td><code>333334</code></td>
+<td>odrzucona autoryzacja — kod wygasł</td>
+</tr>
+<tr>
+<td><code>333335</code></td>
+<td>odrzucona autoryzacja — kod już użyty</td>
+</tr>
+<tr>
+<td><code>333336</code></td>
+<td>odrzucona autoryzacja — inny błąd</td>
+</tr>
+<tr>
+<td><code>444444</code></td>
+<td>status <strong>NEW</strong> przez ~20 sekund, następnie <strong>ERROR</strong> (test timeoutu/odpytywania)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="karta-numer-testowy">Karta — numer testowy<a class="headerlink" href="#karta-numer-testowy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Numer karty</th>
+<th>CVV</th>
+<th>Data ważności</th>
+<th>Wynik</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>4444 4444 4444 4000</code></td>
+<td><code>111</code></td>
+<td>dowolna <strong>przyszła</strong></td>
+<td>płatność udana (SUCCESS)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="przelew-pay-by-link">Przelew (pay-by-link)<a class="headerlink" href="#przelew-pay-by-link" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Kwota <code>9999,99</code> PLN</strong> wymusza <strong>niepowodzenie</strong> transakcji z komunikatem błędu na stronie płatności.</li>
+<li>Scenariusz działa dla wszystkich metod pay-by-link <strong>z wyjątkiem mTransfer</strong>.</li>
+</ul>
+<blockquote>
+<p>ℹ️ Dane testowe pochodzą z oficjalnej dokumentacji PayNow i mogą się zmieniać. Aktualną, pełną listę znajdziesz na <strong><a href="https://faq.paynow.pl/docs/srodowisko-sandbox">faq.paynow.pl → Środowisko sandbox</a></strong>.</p>
+<p>⚠️ Po testach <strong>wyłącz tryb sandbox</strong> w konfiguracji wtyczki (i ewentualny tryb testowy w panelu PayNow), aby płatności produkcyjne były realizowane poprawnie.</p>
+</blockquote>
+<hr />
+<h2 id="powiazane-artykuy">Powiązane artykuły<a class="headerlink" href="#powiazane-artykuy" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><a href="../store-api/">Integracja przez Store API (headless)</a></strong> — endpointy Store API (BLIK Level 0, sub-metody banków, sprawdzanie statusu) i przykłady użycia.</li>
+<li><strong><a href="../zwroty/">Zwroty płatności</a></strong> — pełne i częściowe zwroty z poziomu panelu Shopware.</li>
+</ul>
+<hr />
+<h2 id="wsparcie">Wsparcie<a class="headerlink" href="#wsparcie" title="Permanent link">&para;</a></h2>
+<p>Masz pytanie lub problem z konfiguracją? Napisz do nas: <strong><a href="mailto:support@crehler.com">support@crehler.com</a></strong></p>
+<p align="center"><sub>Bramka płatności <strong>PayNow by CREHLER</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Powrót do góry
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © Crehler Sp. z o.o.
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://crehler.com/" target="_blank" rel="noopener" title="crehler.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M351.9 280H161c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zm-191-48h190.9c-2.8-64.5-17.1-123.9-37.4-167.4-11.4-24.4-23.7-41.8-35.1-52.4C268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4m-48 0c3.5-85.6 25.6-165.1 57.9-217.3C78.7 47.3 10.9 131.2 1.5 232zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3zm111.4-48C501.9 131.2 434.1 47.3 342 14.7c32.3 52.2 54.4 131.7 57.9 217.3z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.top", "navigation.tracking", "content.code.copy", "search.suggest", "search.highlight", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Skopiowano do schowka", "clipboard.copy": "Kopiuj do schowka", "search.result.more.one": "1 wi\u0119cej na tej stronie", "search.result.more.other": "# wi\u0119cej na tej stronie", "search.result.none": "Brak wynik\u00f3w wyszukiwania", "search.result.one": "Wyniki wyszukiwania: 1", "search.result.other": "Wyniki wyszukiwania: #", "search.result.placeholder": "Zacznij pisa\u0107, aby szuka\u0107", "search.result.term.missing": "Brak", "select.version": "Wybierz wersj\u0119"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
