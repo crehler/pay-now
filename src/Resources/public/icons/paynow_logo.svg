@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" role="img" aria-label="paynow">
-  <style>
-    .pn-text { font-family: "Inter", "Segoe UI", Arial, sans-serif; font-weight: 700; font-size: 34px; }
-  </style>
-  <text x="2" y="40" class="pn-text" fill="#14233A">pay<tspan fill="#1FB6A6">now</tspan></text>
-</svg>
