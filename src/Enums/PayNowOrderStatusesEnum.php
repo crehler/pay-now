@@ -17,4 +17,6 @@ enum PayNowOrderStatusesEnum: string
     case REJECTED = 'REJECTED';
     case CANCEL = 'CANCEL';
     case ERROR = 'ERROR';
+    case EXPIRED = 'EXPIRED';
+    case ABANDONED = 'ABANDONED';
 }

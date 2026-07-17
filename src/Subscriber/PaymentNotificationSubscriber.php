@@ -113,11 +113,18 @@ final class PaymentNotificationSubscriber extends AbstractPaymentNotificationSub
     ): TransactionStateTransition {
         $status = (string) ($event->getPayload()['status'] ?? '');
 
+        // Keep this set aligned with PayNowGatewayDetailsProvider::mapLevel and
+        // PayNowPaymentStatusProvider::mapPayNowStatus — EXPIRED (validityTime elapsed
+        // unauthorized) and ABANDONED (superseded by a PayNow-hosted retry) are terminal
+        // failures there; missing them here left the order transaction stuck open forever
+        // even though PayNow delivered the notification and got its HTTP 200 back.
         return match (PayNowOrderStatusesEnum::tryFrom($status)) {
             PayNowOrderStatusesEnum::CONFIRMED => TransactionStateTransition::PAID,
             PayNowOrderStatusesEnum::REJECTED,
             PayNowOrderStatusesEnum::CANCEL,
-            PayNowOrderStatusesEnum::ERROR => TransactionStateTransition::CANCELLED,
+            PayNowOrderStatusesEnum::ERROR,
+            PayNowOrderStatusesEnum::EXPIRED,
+            PayNowOrderStatusesEnum::ABANDONED => TransactionStateTransition::CANCELLED,
             default => TransactionStateTransition::NONE,
         };
     }

@@ -12,7 +12,7 @@
 
 ## Jak to działa
 
-Zwroty są obsługiwane przez **uniwersalny moduł „Zwroty płatności"** dostarczany przez `CrehlerPaymentBundle` i osadzony w **widoku zamówienia** w panelu administracyjnym. Operator inicjuje zwrot w Shopware, a wtyczka PayNow wysyła go do bramki przez API PayNow. Obsługiwane są zwroty **pełne i częściowe**, a do jednej transakcji możesz wykonać **wiele zwrotów** w czasie.
+Zwroty są obsługiwane przez **uniwersalny moduł „Zwroty płatności”** dostarczany przez `CrehlerPaymentBundle` i osadzony w **widoku zamówienia** w panelu administracyjnym. Operator inicjuje zwrot w Shopware, a wtyczka PayNow wysyła go do bramki przez API PayNow. Obsługiwane są zwroty **pełne i częściowe**, a do jednej transakcji możesz wykonać **wiele zwrotów** w czasie.
 
 ## Wymagania
 
@@ -21,18 +21,18 @@ Zwroty są obsługiwane przez **uniwersalny moduł „Zwroty płatności"** dost
 
 ## Jak wykonać zwrot
 
-**1. Otwórz zamówienie i przejdź do modułu „Zwroty płatności".**
-W panelu admina: **Zamówienia** → wybierz zamówienie → zakładka **„Zwroty płatności"**. Widzisz tu podsumowanie (kwota całkowita / zwrócono / pozostało) oraz historię zwrotów. Kliknij **„+ Nowy zwrot"**, aby rozpocząć.
+**1. Otwórz zamówienie i przejdź do modułu „Zwroty płatności”.**
+W panelu admina: **Zamówienia** → wybierz zamówienie → zakładka **„Zwroty płatności”**. Widzisz tu podsumowanie (kwota całkowita / zwrócono / pozostało) oraz historię zwrotów. Kliknij **„+ Nowy zwrot”**, aby rozpocząć.
 
-![Zamówienie w Shopware, zakładka „Zwroty płatności" — przycisk „Nowy zwrot", podsumowanie (Kwota całkowita / Zwrócono / Pozostało) i Historia zwrotów](images/13-refund-order-view.png)
+![Zamówienie w Shopware, zakładka „Zwroty płatności” — przycisk „Nowy zwrot”, podsumowanie (Kwota całkowita / Zwrócono / Pozostało) i Historia zwrotów](images/13-refund-order-view.png)
 
 **2. Wybierz zakres zwrotu.**
-W oknie **„Nowy zwrot"** wybierz tryb: **Całość**, **Częściowy** (konkretna kwota) lub **Wg pozycji** (zaznacz produkty i ilości). Wskaż także **Powód zwrotu** — PayNow przyjmuje **predefiniowaną listę powodów** (nie dowolny tekst), więc wybierz pasujący z listy. U dołu zobaczysz wyliczoną **Kwotę do zwrotu**.
+W oknie **„Nowy zwrot”** wybierz tryb: **Całość**, **Częściowy** (konkretna kwota) lub **Wg pozycji** (zaznacz produkty i ilości). Wskaż także **Powód zwrotu** — PayNow przyjmuje **predefiniowaną listę powodów** (nie dowolny tekst), więc wybierz pasujący z listy. U dołu zobaczysz wyliczoną **Kwotę do zwrotu**.
 
-![Okno „Nowy zwrot" — tryby Całość / Częściowy / Wg pozycji, lista pozycji z ilością i kwotą, lista Powód zwrotu, wyliczona Kwota do zwrotu oraz przycisk „Wykonaj zwrot"](images/14-refund-form.png)
+![Okno „Nowy zwrot” — tryby Całość / Częściowy / Wg pozycji, lista pozycji z ilością i kwotą, lista Powód zwrotu, wyliczona Kwota do zwrotu oraz przycisk „Wykonaj zwrot”](images/14-refund-form.png)
 
 **3. Wykonaj zwrot.**
-Kliknij **„Wykonaj zwrot"**. Zwrot zostaje wysłany do PayNow, a jego stan zmienia się automatycznie w miarę przetwarzania.
+Kliknij **„Wykonaj zwrot”**. Zwrot zostaje wysłany do PayNow, a jego stan zmienia się automatycznie w miarę przetwarzania.
 
 ## Statusy zwrotu
 
@@ -46,15 +46,17 @@ Zwrot ma własny cykl życia (niezależny od statusu samej transakcji):
 | **Nieudany** (failed) | Bramka odrzuciła zwrot |
 | **Anulowany** (cancelled) | Zwrot wycofany przed realizacją |
 
-Po zsumowaniu zwrotów status **zamówienia** odzwierciedla „zwrócone" / „częściowo zwrócone".
+Po zsumowaniu zwrotów status **zamówienia** odzwierciedla „zwrócone” / „częściowo zwrócone”.
 
 ## Zwroty częściowe i wielokrotne
 
-Możesz zwrócić część kwoty, a później kolejną — aż do sumy nieprzekraczającej wartości opłaconej transakcji. Każdy zwrot jest osobnym wpisem z własnym statusem, kwotą, powodem i datą, co daje czytelny audyt „co, kiedy i ile" zostało zwrócone.
+Możesz zwrócić część kwoty, a później kolejną — aż do sumy nieprzekraczającej wartości opłaconej transakcji. Każdy zwrot jest osobnym wpisem z własnym statusem, kwotą, powodem i datą, co daje czytelny audyt „co, kiedy i ile” zostało zwrócone.
 
 ## Zwroty wykonane w panelu PayNow
 
-Jeśli zwrot zostanie wykonany **ręcznie w panelu PayNow** (poza sklepem), wtyczka odbierze powiadomienie (webhook) i **zsynchronizuje** stan zwrotu w Shopware, aby widok zamówienia pozostał spójny.
+> ⚠️ **Zwrot wykonany ręcznie w panelu PayNow (poza sklepem) NIE synchronizuje się automatycznie do Shopware.** PayNow nie udostępnia webhooka ani żadnego innego mechanizmu API do wykrywania zwrotów zainicjowanych poza sklepem — ich webhook obsługuje wyłącznie statusy samej płatności (nie zmieniają się one po zwrocie), a status zwrotu można sprawdzić tylko po jego identyfikatorze, którego Shopware w takim przypadku nie zna.
+>
+> **Rekomendacja:** zwroty wykonuj wyłącznie z poziomu modułu „Zwroty płatności” w Shopware (patrz wyżej) — tylko wtedy stan w sklepie pozostaje spójny z PayNow. Jeśli zwrot musiał powstać w panelu PayNow, zweryfikuj i ewentualnie odnotuj to ręcznie w Shopware.
 
 ## Uwagi
 

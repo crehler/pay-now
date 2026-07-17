@@ -58,4 +58,19 @@
             <name>sandboxCheckCredentials</name>
         </component>
     </card>
+    <card>
+        <title>Payment settings</title>
+        <title lang="pl-PL">Ustawienia płatności</title>
+        <title lang="de-DE">Zahlungseinstellungen</title>
+        <component name="cr-payment-validity-time">
+            <name>validityTime</name>
+            <label>Transaction validity time</label>
+            <label lang="pl-PL">Czas ważności transakcji</label>
+            <label lang="de-DE">Gültigkeitsdauer der Transaktion</label>
+            <helpText>How long the customer has to complete the payment before PayNow marks it expired. Min. 1 minute, max. 10 days.</helpText>
+            <helpText lang="pl-PL">Ile czasu klient ma na dokończenie płatności, zanim PayNow oznaczy ją jako wygasłą. Min. 1 minuta, maks. 10 dni.</helpText>
+            <helpText lang="de-DE">Wie viel Zeit der Kunde hat, um die Zahlung abzuschließen, bevor PayNow sie als abgelaufen markiert. Min. 1 Minute, max. 10 Tage.</helpText>
+            <defaultValue>3600</defaultValue>
+        </component>
+    </card>
 </config>

@@ -19,8 +19,11 @@ use Crehler\PaymentBundle\Domain\Entity\Order\BillingAddress;
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\OrderTransaction;
 use Crehler\PaymentBundle\Domain\ValueObjects\LineItem;
 use Crehler\PayNow\Dto\Transaction\{TransactionBuyerDto, TransactionBuyerPhoneDto, TransactionDto, TransactionOrderDto};
+use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 use function array_map;
+use function max;
+use function min;
 
 final readonly class TransactionDtoFactory
 {
@@ -29,9 +32,16 @@ final readonly class TransactionDtoFactory
      */
     private const CONFIG_DOMAIN = 'CrehlerPayNow.config';
 
+    /**
+     * PayNow's own default when the field is left unconfigured — matches the value
+     * this factory sent unconditionally before the setting became configurable.
+     */
+    private const DEFAULT_VALIDITY_TIME_SECONDS = 3600;
+
     public function __construct(
         private PaymentRequestDtoFactory $paymentRequestDtoFactory,
         private TransactionDescriptionRenderer $descriptionRenderer,
+        private SystemConfigService $systemConfigService,
     ) {
     }
 
@@ -65,11 +75,24 @@ final readonly class TransactionDtoFactory
             continueUrl: $returnUrl,
             buyer: $buyer,
             orderItems: $lineItems,
-            validityTime: 3600,
+            validityTime: $this->resolveValidityTime($order->salesChannelId),
             paymentMethodId: $paymentMethodId,
             paymentMethodToken: $paymentMethodToken,
             authorizationCode: $authorizationCode,
         );
+    }
+
+    /**
+     * PayNow rejects the request outside its own [60, 864000] seconds bounds — clamp
+     * defensively so an operator typo (or a config left over from a looser future
+     * limit) never turns into a hard API error on checkout.
+     */
+    private function resolveValidityTime(?string $salesChannelId): int
+    {
+        $configured = $this->systemConfigService->getInt(self::CONFIG_DOMAIN . '.validityTime', $salesChannelId);
+        $validityTime = $configured > 0 ? $configured : self::DEFAULT_VALIDITY_TIME_SECONDS;
+
+        return max(60, min($validityTime, 864000));
     }
 
     /**
