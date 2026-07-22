@@ -4,7 +4,7 @@
 
 <h1 align="center">PayNow dla Shopware 6 — dokumentacja</h1>
 
-<p align="center">Integracja bramki płatniczej <strong>PayNow</strong> (operator płatności mBanku) ze sklepem <strong>Shopware 6</strong> — <strong>Bramka płatności PayNow by CREHLER</strong>.<br>
+<p align="center">Integracja bramki płatniczej <strong>PayNow</strong> (operator płatności mBanku) ze sklepem <strong>Shopware 6</strong> — <strong>Bramka płatności PayNow</strong>.<br>
 BLIK (w tym Level 0), karty, pay-by-link oraz zwroty z panelu administratora.</p>
 
 ---
@@ -36,4 +36,4 @@ Shopware **6.6/6.7**, PHP **8.2–8.5**, aktywne konto PayNow z kluczami API, wa
 
 Masz pytanie? Napisz do nas: **[support@crehler.com](mailto:support@crehler.com)**
 
-<p align="center"><sub>Bramka płatności <strong>PayNow by CREHLER</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>
+<p align="center"><sub>Bramka płatności <strong>PayNow</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>

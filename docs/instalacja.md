@@ -4,7 +4,7 @@
 
 <h1 align="center">Instrukcja instalacji</h1>
 
-<p align="center">Wtyczkę <strong>Bramka płatności PayNow by CREHLER</strong> zainstalujesz na dwa sposoby: przez Composer albo z paczki ZIP.</p>
+<p align="center">Wtyczkę <strong>Bramka płatności PayNow</strong> zainstalujesz na dwa sposoby: przez Composer albo z paczki ZIP.</p>
 
 ---
 
@@ -35,7 +35,7 @@ bin/console plugin:install --activate CrehlerPayNow
 bin/console cache:clear
 ```
 
-**3.** Wtyczka pojawi się w **Rozszerzenia → Moje rozszerzenia** jako *„Bramka płatności PayNow by CREHLER"*.
+**3.** Wtyczka pojawi się w **Rozszerzenia → Moje rozszerzenia** jako *„Bramka płatności PayNow"*.
 
 ➡️ Przejdź do **[Instrukcji konfiguracji](konfiguracja.md)**.
 
@@ -57,9 +57,9 @@ bin/console cache:clear
 
 ![Okno wyboru pliku z zaznaczonym CrehlerPayNow.zip](images/18-zip-select.png)
 
-**5.** Wtyczka pojawi się na liście jako *„Bramka płatności PayNow by CREHLER"* — kliknij **„Zainstaluj"**, a następnie **„Aktywuj"**.
+**5.** Wtyczka pojawi się na liście jako *„Bramka płatności PayNow"* — kliknij **„Zainstaluj"**, a następnie **„Aktywuj"**.
 
-![Wtyczka „Bramka płatności PayNow by CREHLER" na liście Moje rozszerzenia z przyciskiem „Zainstaluj"](images/19-zip-install.png)
+![Wtyczka „Bramka płatności PayNow" na liście Moje rozszerzenia z przyciskiem „Zainstaluj"](images/19-zip-install.png)
 
 ➡️ Przejdź do **[Instrukcji konfiguracji](konfiguracja.md)**.
 
@@ -69,4 +69,4 @@ bin/console cache:clear
 
 Problem z instalacją? Napisz do nas: **[support@crehler.com](mailto:support@crehler.com)**
 
-<p align="center"><sub>Bramka płatności <strong>PayNow by CREHLER</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>
+<p align="center"><sub>Bramka płatności <strong>PayNow</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>

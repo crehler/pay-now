@@ -4,7 +4,7 @@
 
 <h1 align="center">PayNow dla Shopware 6 — instrukcja konfiguracji</h1>
 
-<p align="center">Bramka płatności PayNow by CREHLER — krok po kroku: od danych z panelu PayNow po gotowe płatności w sklepie.</p>
+<p align="center">Bramka płatności PayNow — krok po kroku: od danych z panelu PayNow po gotowe płatności w sklepie.</p>
 
 ---
 
@@ -18,7 +18,7 @@ Potrzebujesz:
 
 - **aktywnego konta PayNow** z dostępem do kluczy API (do płatności produkcyjnych) lub **konta sandbox** (do testów),
 - sklepu Shopware z kanałem sprzedaży obsługującym walutę **PLN**,
-- zainstalowanej i aktywnej wtyczki **Bramka płatności PayNow by CREHLER**.
+- zainstalowanej i aktywnej wtyczki **Bramka płatności PayNow**.
 
 > 💡 **Najpierw testy.** Zalecamy skonfigurowanie i przetestowanie płatności na danych **sandbox**, a dopiero potem przełączenie na produkcję.
 
@@ -49,9 +49,9 @@ Skopiuj obie wartości. Jeśli nie masz jeszcze kluczy, wygeneruj je w panelu Pa
 
 ## Krok 2 — Wpisz dane w konfiguracji wtyczki
 
-W panelu Shopware przejdź do **Rozszerzenia → Moje rozszerzenia**, znajdź **Bramka płatności PayNow by CREHLER** (musi być włączona — przełącznik po lewej) i kliknij **„Skonfiguruj"**.
+W panelu Shopware przejdź do **Rozszerzenia → Moje rozszerzenia**, znajdź **Bramka płatności PayNow** (musi być włączona — przełącznik po lewej) i kliknij **„Skonfiguruj"**.
 
-![Shopware: Rozszerzenia → Moje rozszerzenia — wtyczka Bramka płatności PayNow by CREHLER i przycisk „Skonfiguruj"](images/04-sw-extension-configure.png)
+![Shopware: Rozszerzenia → Moje rozszerzenia — wtyczka Bramka płatności PayNow i przycisk „Skonfiguruj"](images/04-sw-extension-configure.png)
 
 ### 2a. Dane produkcyjne
 
@@ -115,7 +115,7 @@ Aby metody PayNow (BLIK, karta, przelew) były widoczne w checkout, muszą być 
 
 ### 3a. Aktywuj metody płatności
 
-**Ustawienia → Metody płatności** — upewnij się, że metody PayNow są aktywne (przełącznik **„Aktywny"**). Wtyczka dodaje trzy: **Karta**, **BLIK** i **Przelew online** — każda opisana „… Bramka płatności PayNow by CREHLER".
+**Ustawienia → Metody płatności** — upewnij się, że metody PayNow są aktywne (przełącznik **„Aktywny"**). Wtyczka dodaje trzy: **Karta**, **BLIK** i **Przelew online** — każda z dopiskiem „… Obsługiwane przez PayNow".
 
 ![Shopware: Ustawienia → Metody płatności — Karta, BLIK i Przelew online (PayNow) z włączonym przełącznikiem „Aktywny"](images/08-sw-payment-methods.png)
 
@@ -211,4 +211,4 @@ Jeśli klient zaznaczy **„Zapisz kartę"**, PayNow zapamiętuje kartę jako **
 
 Masz pytanie lub problem z konfiguracją? Napisz do nas: **[support@crehler.com](mailto:support@crehler.com)**
 
-<p align="center"><sub>Bramka płatności <strong>PayNow by CREHLER</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>
+<p align="center"><sub>Bramka płatności <strong>PayNow</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>

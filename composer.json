@@ -3,7 +3,7 @@
     "description": "PayNow Shopware Integration",
     "type": "shopware-platform-plugin",
     "license": "proprietary",
-    "version": "6.2.0",
+    "version": "6.2.1",
     "authors": [
         {
             "name": "Crehler Sp. z o. o.",
@@ -30,9 +30,9 @@
         "shopware-plugin-class": "Crehler\\PayNow\\CrehlerPayNow",
         "plugin-icon": "src/Resources/config/paynowpayment.png",
         "label": {
-            "de-DE": "Zahlungsgateway PayNow by CREHLER",
-            "en-GB": "Payment Gateway PayNow by CREHLER",
-            "pl-PL": "Bramka płatności PayNow by CREHLER"
+            "de-DE": "Zahlungsgateway PayNow",
+            "en-GB": "Payment Gateway PayNow",
+            "pl-PL": "Bramka płatności PayNow"
         },
         "description": {
             "de-DE": "PayNow ist der Payment Service Provider der mBank. Schnelle und sichere Online-Zahlungen für Ihren Shop.",

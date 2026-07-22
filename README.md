@@ -2,7 +2,7 @@
   <img src="src/Resources/public/icons/paynow_logo.png" alt="PayNow" height="120">
 </p>
 
-<h1 align="center">PayNow dla Shopware 6 — by CREHLER</h1>
+<h1 align="center">PayNow dla Shopware 6</h1>
 
 <p align="center">
   Integracja bramki płatniczej <strong>PayNow</strong> (operator płatności mBanku) ze sklepem <strong>Shopware 6</strong>.<br>
@@ -13,7 +13,6 @@
   <img src="https://img.shields.io/badge/Shopware-6.6%20%7C%206.7-189EFF?logo=shopware&logoColor=white" alt="Shopware 6.6 | 6.7">
   <img src="https://img.shields.io/badge/PHP-8.2%20–%208.5-777BB4?logo=php&logoColor=white" alt="PHP 8.2 – 8.5">
   <img src="https://img.shields.io/badge/wersja-6.0-success" alt="Wersja 6.0">
-  <img src="https://img.shields.io/badge/by-CREHLER-ff5c00" alt="by CREHLER">
 </p>
 
 ---
@@ -26,7 +25,7 @@ Shopware działa też w modelu **headless** — całą logikę sklepu udostępni
 
 ## O wtyczce
 
-**Bramka płatności PayNow by CREHLER** podłącza polską bramkę płatniczą [PayNow](https://www.paynow.pl/) — operatora płatności **mBanku** — do Twojego sklepu Shopware 6. Klient płaci tak, jak lubi — kodem BLIK bez wychodzenia ze sklepu, kartą albo szybkim przelewem pay-by-link — a sklep automatycznie otrzymuje potwierdzenie płatności i aktualizuje status zamówienia. Zwroty wykonasz jednym kliknięciem z panelu Shopware.
+**Bramka płatności PayNow** podłącza polską bramkę płatniczą [PayNow](https://www.paynow.pl/) — operatora płatności **mBanku** — do Twojego sklepu Shopware 6. Klient płaci tak, jak lubi — kodem BLIK bez wychodzenia ze sklepu, kartą albo szybkim przelewem pay-by-link — a sklep automatycznie otrzymuje potwierdzenie płatności i aktualizuje status zamówienia. Zwroty wykonasz jednym kliknięciem z panelu Shopware.
 
 ## ✨ Funkcje
 
@@ -72,7 +71,7 @@ bin/console plugin:install --activate CrehlerPayNow
 bin/console cache:clear
 ```
 
-**3. Uzupełnij dane w konfiguracji wtyczki** — panel admina → **Rozszerzenia → Moje rozszerzenia → Bramka płatności PayNow by CREHLER → Skonfiguruj**:
+**3. Uzupełnij dane w konfiguracji wtyczki** — panel admina → **Rozszerzenia → Moje rozszerzenia → Bramka płatności PayNow → Skonfiguruj**:
 
 - **Klucz dostępu do API** i **Klucz obliczania podpisu** — z panelu PayNow: *Ustawienia → Sklepy i punkty płatności → wybierz sklep*,
 - na koniec kliknij **przycisk testu połączenia**, aby zweryfikować dane.
@@ -84,21 +83,3 @@ bin/console cache:clear
 ## 🛟 Wsparcie
 
 Masz pytanie lub problem? Napisz do nas: **[support@crehler.com](mailto:support@crehler.com)**
-
----
-
-## O CREHLER
-
-<p align="center">
-  <a href="https://crehler.com/"><strong>CREHLER</strong></a> — Twój partner w e-commerce.
-</p>
-
-Tworzymy i rozwijamy sklepy internetowe na **Shopware**, budujemy dedykowane integracje, wtyczki i headless‑owe frontendy (Nuxt). Robimy integracje **ERP**, **WMS**, **płatności** i **dostaw**, a także customowe **konfiguratory**, **kalkulatory** i inne rozszerzenia szyte na miarę Twojego sklepu.
-
-Potrzebujesz wdrożenia, integracji albo dedykowanej funkcji w swoim sklepie? **[Porozmawiajmy → crehler.com](https://crehler.com/)**
-
----
-
-## 📄 Licencja
-
-Oprogramowanie własnościowe (proprietary). © Crehler Sp. z o.o. Wszelkie prawa zastrzeżone.

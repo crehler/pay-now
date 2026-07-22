@@ -69,4 +69,4 @@ Możesz zwrócić część kwoty, a później kolejną — aż do sumy nieprzekr
 
 Problem ze zwrotem? Napisz do nas: **[support@crehler.com](mailto:support@crehler.com)**
 
-<p align="center"><sub>Bramka płatności <strong>PayNow by CREHLER</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>
+<p align="center"><sub>Bramka płatności <strong>PayNow</strong> · <a href="https://crehler.com/">crehler.com</a></sub></p>
