@@ -16,6 +16,7 @@ use Crehler\PaymentBundle\Application\Port\Driving\OrderTransactionServicePort;
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\OrderTransaction;
 use Crehler\PaymentBundle\Infrastructure\Handler\{AbstractPaymentMethodHandler, PaymentResult};
 use Crehler\PaymentBundle\Shared\{EnhancedLogger, FinalizeTokenService, Serializer};
+use Crehler\PayNow\Enums\PayNowOrderStatusesEnum;
 use Crehler\PayNow\Factory\TransactionDtoFactory;
 use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
 use Crehler\PayNow\Services\IdempotencyKeyService;
@@ -29,6 +30,8 @@ use Symfony\Component\Routing\RouterInterface;
 use Throwable;
 
 use function is_string;
+use function sprintf;
+use function strtoupper;
 
 #[AutoconfigureTag('shopware.payment.method.async')]
 final class BlikHandler extends AbstractPaymentMethodHandler
@@ -149,12 +152,24 @@ final class BlikHandler extends AbstractPaymentMethodHandler
             ->payment($orderTransaction->order->salesChannelId)
             ->authorize($normalizedTransaction, $idempotencyKey);
 
+        $gatewayStatus = (string) $result->getStatus();
+
         $this->logger->info('PayNow BLIK response', [
             'paymentId' => $result->getPaymentId(),
-            'status' => $result->getStatus(),
+            'status' => $gatewayStatus,
         ]);
 
         $this->persistGatewayPaymentId($transaction->getOrderTransactionId(), $result->getPaymentId(), $context);
+
+        // The gateway status decides the outcome. It used to go to the log only, so every
+        // rejected BLIK code still produced a success result: the Store API answered
+        // success=true with an empty error field and the customer was redirected to a
+        // finish page carrying the failure in its query string (WT-910).
+        if ($this->isRejected($gatewayStatus)) {
+            return PaymentResult::failure(
+                sprintf('PayNow rejected the BLIK payment with status "%s"', $gatewayStatus)
+            );
+        }
 
         // A BLIK authorized on a T6 code has no redirect (PENDING, redirectUrl null);
         // empty string = "no redirect" → the shared flow sends the customer to the
@@ -165,6 +180,31 @@ final class BlikHandler extends AbstractPaymentMethodHandler
             redirectUrl: $result->getRedirectUrl() ?? '',
             gatewayOrderId: $result->getPaymentId()
         );
+    }
+
+    /**
+     * Did the gateway refuse the payment outright?
+     *
+     * PayNowOrderStatusesEnum holds exactly the terminal statuses (CONFIRMED plus the
+     * five rejections), so it is the single place both this handler and the webhook
+     * subscriber agree on. NEW and PENDING are deliberately absent — they mean the
+     * payment is in flight, which is the normal answer to a T6 authorization. An
+     * unmapped status is treated as in-flight and left to the webhook, so a status the
+     * gateway adds later cannot start failing payments on its own.
+     */
+    private function isRejected(string $gatewayStatus): bool
+    {
+        $status = PayNowOrderStatusesEnum::tryFrom(strtoupper($gatewayStatus));
+
+        if ($status === null) {
+            $this->logger->warning('PayNow returned an unmapped BLIK status; treating as in flight', [
+                'status' => $gatewayStatus,
+            ]);
+
+            return false;
+        }
+
+        return $status !== PayNowOrderStatusesEnum::CONFIRMED;
     }
 
     /**

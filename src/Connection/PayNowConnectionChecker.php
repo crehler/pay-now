@@ -61,7 +61,9 @@ final class PayNowConnectionChecker extends AbstractGatewayConnectionChecker
             return ConnectionCheckResult::failure($this->exceptionDescriber->describe($e));
         }
 
-        return ConnectionCheckResult::ok('Connection successful.');
+        // No message: the admin renders its own translated confirmation. Passing English
+        // text here put "Connection successful." into an otherwise Polish panel (WT-910).
+        return ConnectionCheckResult::ok();
     }
 
     protected function configDomain(): string

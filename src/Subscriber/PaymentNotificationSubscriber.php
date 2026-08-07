@@ -26,6 +26,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
+use Shopware\Core\Framework\Uuid\Uuid;
 use Throwable;
 
 final class PaymentNotificationSubscriber extends AbstractPaymentNotificationSubscriber
@@ -118,13 +119,19 @@ final class PaymentNotificationSubscriber extends AbstractPaymentNotificationSub
         // unauthorized) and ABANDONED (superseded by a PayNow-hosted retry) are terminal
         // failures there; missing them here left the order transaction stuck open forever
         // even though PayNow delivered the notification and got its HTTP 200 back.
+        //
+        // FAILED, not CANCELLED: a rejection answered synchronously by the authorization
+        // call ends up "failed" (BlikHandler → the shared pay() path), so mapping the
+        // notification-borne rejection to "cancelled" put one business case into two
+        // different terminal states depending only on timing — which showed up as two
+        // different rows in the order list and broke filters and reporting (WT-910).
         return match (PayNowOrderStatusesEnum::tryFrom($status)) {
             PayNowOrderStatusesEnum::CONFIRMED => TransactionStateTransition::PAID,
             PayNowOrderStatusesEnum::REJECTED,
             PayNowOrderStatusesEnum::CANCEL,
             PayNowOrderStatusesEnum::ERROR,
             PayNowOrderStatusesEnum::EXPIRED,
-            PayNowOrderStatusesEnum::ABANDONED => TransactionStateTransition::CANCELLED,
+            PayNowOrderStatusesEnum::ABANDONED => TransactionStateTransition::FAILED,
             default => TransactionStateTransition::NONE,
         };
     }
@@ -138,7 +145,11 @@ final class PaymentNotificationSubscriber extends AbstractPaymentNotificationSub
         $paymentId = (string) ($payload['paymentId'] ?? '');
 
         // Primary: externalId is the order transaction id (sent as externalId in the DTO).
-        if ($externalId !== '') {
+        // The UUID guard is what makes the order-number fallback below reachable at all:
+        // Criteria rejects a non-hex id, and that exception escaped through verify() —
+        // which sits outside the base class's try — so the gateway received a full HTML
+        // error page and the fallback was dead code (WT-910).
+        if (Uuid::isValid($externalId)) {
             $criteria = new Criteria([$externalId]);
             $criteria->addAssociation('order.orderCustomer');
 

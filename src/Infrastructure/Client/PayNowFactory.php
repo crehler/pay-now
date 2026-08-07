@@ -106,4 +106,17 @@ final class PayNowFactory extends AbstractGatewayClientFactory
     {
         return new ShopConfiguration($this->client($salesChannelId));
     }
+
+    /**
+     * Is the plugin talking to the sandbox for this sales channel?
+     *
+     * Exposed because the environment is not only a client-construction detail — the admin
+     * has to tell the operator whether a transaction was real (see
+     * GatewayPaymentDetails::$sandbox). It is the same config lookup the client uses, so
+     * the reported environment cannot drift from the one actually called.
+     */
+    public function isSandboxMode(?string $salesChannelId = null): bool
+    {
+        return $this->isSandbox(self::ENABLE_SANDBOX, $salesChannelId);
+    }
 }

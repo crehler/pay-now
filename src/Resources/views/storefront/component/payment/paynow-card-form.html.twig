@@ -1,7 +1,13 @@
-{% sw_extends '@CrehlerPaymentBundle/storefront/component/payment/payment-form.html.twig' %}
+{#
+  PayNow card section embedded in the checkout confirm page.
 
-{% block crehler_payment_method_card_form %}
-    {# Validate this is PayNow card handler #}
+  Rendered by path via CardFormTemplateProviderPort, not by overriding a Twig block in
+  the bundle. The bundle's payment-form.html.twig has to extend the Storefront template
+  at the same relative path as its own, which makes Shopware flatten the inheritance
+  chain — a block override from here never reached the output and this section rendered
+  empty (WT-910).
+#}
+{% block crehler_paynow_card_form %}
     {% if selectedCardPayment and 'PayNow' in selectedCardPayment.handlerIdentifier %}
         {% set savedCards = selectedCardPayment.extensions[constant('Crehler\\PaymentBundle\\Infrastructure\\StoreApi\\CustomerSavedCard\\SavedCardTokenResponse::API_ALIAS')]|default(null) %}
 
@@ -15,8 +21,6 @@
              data-saved-card-selector="true">
 
             <div class="paynow-card-form-header">
-                <img src="{{ asset('bundles/crehlerpaynow/icons/mastercard.svg') }}" alt="Mastercard" class="paynow-card-brand-icon" onerror="this.style.display='none'">
-                <img src="{{ asset('bundles/crehlerpaynow/icons/visa.svg') }}" alt="Visa" class="paynow-card-brand-icon" onerror="this.style.display='none'">
                 <span class="paynow-card-form-title">{{ "paynow.card.title"|trans|default("Platnosc karta") }}</span>
             </div>
 
@@ -39,18 +43,6 @@
                     newCardClass: 'paynow-new-card-option',
                 } only %}
             {% endif %}
-
-            {# Save card checkbox #}
-            <div class="paynow-save-card" data-save-card-wrapper>
-                <input id="paynowSaveCard"
-                       type="checkbox"
-                       name="paynowSaveCard"
-                       class="form-check-input"
-                       form="confirmOrderForm">
-                <label for="paynowSaveCard">
-                    {{ "paynow.card.saveCard"|trans|default("Zapisz karte na przyszlosc") }}
-                </label>
-            </div>
 
             {# Hidden inputs for form submission #}
             <input type="hidden"

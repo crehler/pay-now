@@ -66,6 +66,9 @@ final readonly class PayNowGatewayDetailsProvider implements GatewayPaymentDetai
                 gatewayId: (string) ($status->getPaymentId() ?: $gatewayId),
                 rawStatus: $rawStatus,
                 statusLevel: $this->mapLevel($rawStatus),
+                // Read from the same config as the client that was just called, so the
+                // admin cannot report production for a transaction made in sandbox.
+                sandbox: $this->payNowFactory->isSandboxMode($salesChannelId),
             );
         } catch (Throwable $e) {
             $this->logger->error('Failed to load PayNow gateway details', [
