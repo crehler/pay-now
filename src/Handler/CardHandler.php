@@ -77,8 +77,11 @@ final class CardHandler extends AbstractPaymentMethodHandler
         // belongs to them on this sales channel; the gateway token is decrypted
         // server-side only after the ownership check passes (IDOR guard). A missing or
         // unowned id falls back to the new-card redirect flow (token stays null).
+        $savedCardId = $request->get('paynowCardToken');
+        $savedCardId = is_string($savedCardId) && $savedCardId !== '' ? $savedCardId : null;
+
         $savedCardToken = $this->resolveSavedCardToken(
-            $request->get('paynowCardToken'),
+            $savedCardId,
             $orderTransaction,
             $context,
         );
@@ -96,8 +99,13 @@ final class CardHandler extends AbstractPaymentMethodHandler
 
         ['returnUrl' => $returnUrl] = $this->buildPaymentUrls($orderTransaction, $transaction);
 
+        // Which card is being charged is part of the attempt: switching between the
+        // new-card flow and a saved card (or between two saved cards) reuses the same
+        // order transaction, and a shared key would replay the earlier payment (WT-918).
+        // The LOCAL stored-card id is used as the discriminator, never the gateway token.
         $idempotencyKey = $this->idempotencyKeyService->generate(
             orderTransaction: $orderTransaction,
+            paymentSubMethodId: $savedCardToken === null ? null : $savedCardId,
             context: $context
         );
 

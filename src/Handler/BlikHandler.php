@@ -119,8 +119,12 @@ final class BlikHandler extends AbstractPaymentMethodHandler
 
         ['returnUrl' => $returnUrl] = $this->buildPaymentUrls($orderTransaction, $transaction);
 
+        // BLIK retries already run on a fresh order transaction (BlikRetryPaymentService),
+        // so the key changes anyway; the sub-method is passed for consistency with the
+        // other handlers and to stay correct if that flow ever reuses a transaction.
         $idempotencyKey = $this->idempotencyKeyService->generate(
             orderTransaction: $orderTransaction,
+            paymentSubMethodId: $paymentSubMethodId,
             context: $context
         );
 

@@ -8,6 +8,13 @@
 
 ### Fixed
 
+- **Retrying with a different bank opened the previously chosen one.** The idempotency key
+  was derived from the order transaction alone, and Shopware reopens that same transaction
+  when a customer retries with the same payment method — so a switch from one bank to
+  another reached PayNow under the original key and the gateway replayed the original
+  payment. The key now identifies the payment attempt (transaction + sub-method), which
+  keeps the double-charge guard for a repeated submit while letting a genuinely different
+  choice create a new payment.
 - **BLIK: rejected payments no longer reported as success.** The gateway status from the
   authorization response went to the log only, so every rejected BLIK code still produced a
   success result — `POST /store-api/cr/payment/blik` answered `success: true` with an empty

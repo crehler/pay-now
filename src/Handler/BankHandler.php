@@ -68,8 +68,12 @@ final class BankHandler extends AbstractPaymentMethodHandler
     ): PaymentResult {
         ['returnUrl' => $returnUrl] = $this->buildPaymentUrls($orderTransaction, $transaction);
 
+        // The bank is part of the attempt: retrying with a different bank reuses the same
+        // order transaction (Shopware reopens it), so without this the gateway would replay
+        // the payment created for the previously chosen bank (WT-918).
         $idempotencyKey = $this->idempotencyKeyService->generate(
             orderTransaction: $orderTransaction,
+            paymentSubMethodId: $paymentSubMethodId,
             context: $context
         );
 
