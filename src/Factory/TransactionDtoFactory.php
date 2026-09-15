@@ -15,11 +15,18 @@ use Crehler\PaymentBundle\Application\DTO\PaymentRequest\OrderItemDTO;
 use Crehler\PaymentBundle\Application\Factory\PaymentRequestDtoFactory;
 use Crehler\PaymentBundle\Application\Service\TransactionDescriptionRenderer;
 use Crehler\PaymentBundle\Domain\Entity\Customer;
-use Crehler\PaymentBundle\Domain\Entity\Order\BillingAddress;
+use Crehler\PaymentBundle\Domain\Entity\Order\{BillingAddress, ShippingAddress};
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\OrderTransaction;
-use Crehler\PaymentBundle\Domain\ValueObjects\LineItem;
-use Crehler\PayNow\Dto\Transaction\{TransactionBuyerDto, TransactionBuyerPhoneDto, TransactionDto, TransactionOrderDto};
+use Crehler\PaymentBundle\Domain\ValueObjects\{LineItem, StreetAddress};
+use Crehler\PaymentBundle\Shared\Serializer;
+use Crehler\PayNow\Dto\Transaction\{TransactionAddressDto,
+    TransactionBuyerAddressDto,
+    TransactionBuyerDto,
+    TransactionBuyerPhoneDto,
+    TransactionDto,
+    TransactionOrderDto};
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 
 use function array_map;
 use function max;
@@ -63,6 +70,8 @@ final readonly class TransactionDtoFactory
         $buyer = $this->createBuyer(
             customer: $order->customer,
             billingAddress: $order->billingAddress,
+            shippingAddress: $order->shippingAddress,
+            locale: $order->locale,
         );
 
         $lineItems = $this->createLineItems($order->lineItems, $transactionAmount);
@@ -80,6 +89,33 @@ final readonly class TransactionDtoFactory
             paymentMethodToken: $paymentMethodToken,
             authorizationCode: $authorizationCode,
         );
+    }
+
+    /**
+     * The JSON PayNow actually receives — null fields dropped, not sent as null.
+     *
+     * It lives here rather than in each handler because the payload shape is this factory's
+     * contract, and because dropping nulls stopped being cosmetic once the address arrived:
+     * a street line with no number yields houseNumber = null, and PayNow validates that
+     * field's length and pattern on whatever reaches it. An absent optional field is what
+     * "not provided" looks like in this API; an explicit null is a value that fails.
+     *
+     * The fields that were already nullable — paymentMethodId, paymentMethodToken,
+     * authorizationCode — mean exactly the same absent as they did when sent as null: a
+     * payment with no paymentMethodId is the one that lands on PayNow's own paywall.
+     *
+     * @return array<string, mixed>
+     */
+    public function normalize(TransactionDto $transactionDto): array
+    {
+        /** @var array<string, mixed> $normalized */
+        $normalized = Serializer::getSerializer()->normalize(
+            $transactionDto,
+            Serializer::JSON_FORMAT,
+            [AbstractObjectNormalizer::SKIP_NULL_VALUES => true],
+        );
+
+        return $normalized;
     }
 
     /**
@@ -121,9 +157,21 @@ final readonly class TransactionDtoFactory
         );
     }
 
+    /**
+     * The address goes out on EVERY payment, not only the ones that strictly need it.
+     *
+     * PayPo is what forced the question — it refuses to underwrite without billing and
+     * shipping — but the answer is not to special-case it. The data is already in the order,
+     * PayNow documents the whole buyer.address block as optional, and a payment that carries
+     * the customer's address is the one their risk engine, their chargeback handling and
+     * their support desk can actually work with. Sending it only for one method would mean
+     * two shapes of the same request and a branch that has to stay correct forever.
+     */
     private function createBuyer(
         Customer $customer,
         BillingAddress $billingAddress,
+        ?ShippingAddress $shippingAddress,
+        ?string $locale,
     ): TransactionBuyerDto {
         $phone = $this->createBuyerPhone(
             countryCode: $billingAddress->countryCode,
@@ -135,7 +183,47 @@ final readonly class TransactionDtoFactory
             firstName: $customer->firstName,
             lastName: $customer->lastName,
             phone: $phone,
-            locale: '',
+            locale: $locale,
+            address: new TransactionBuyerAddressDto(
+                billing: $this->createAddress(
+                    street: $billingAddress->street,
+                    city: $billingAddress->city,
+                    zipCode: $billingAddress->zipCode,
+                    countryCode: $billingAddress->countryCode,
+                ),
+                // Null when the order has no delivery — a download-only cart. Repeating the
+                // billing address under the shipping name would tell PayPo the goods go
+                // where the invoice goes, which is a claim nobody made.
+                shipping: $shippingAddress === null ? null : $this->createAddress(
+                    street: $shippingAddress->street,
+                    city: $shippingAddress->city,
+                    zipCode: $shippingAddress->zipCode,
+                    countryCode: $shippingAddress->countryCode,
+                ),
+            ),
+        );
+    }
+
+    /**
+     * Shopware keeps the street as one line and PayNow wants street, houseNumber and
+     * apartmentNumber apart, so the split comes from the bundle's StreetAddress — where it
+     * is tested, and where the next gateway will find it.
+     */
+    private function createAddress(
+        string $street,
+        string $city,
+        ?string $zipCode,
+        string $countryCode,
+    ): TransactionAddressDto {
+        $parsed = StreetAddress::fromLine($street);
+
+        return new TransactionAddressDto(
+            street: $parsed->street,
+            city: $city,
+            zipcode: StreetAddress::normalizeZipCode($zipCode),
+            country: $countryCode,
+            houseNumber: $parsed->houseNumber,
+            apartmentNumber: $parsed->apartmentNumber,
         );
     }
 

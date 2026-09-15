@@ -125,15 +125,26 @@ final class PaymentNotificationSubscriber extends AbstractPaymentNotificationSub
         // notification-borne rejection to "cancelled" put one business case into two
         // different terminal states depending only on timing — which showed up as two
         // different rows in the order list and broke filters and reporting (WT-910).
-        return match (PayNowOrderStatusesEnum::tryFrom($status)) {
-            PayNowOrderStatusesEnum::CONFIRMED => TransactionStateTransition::PAID,
-            PayNowOrderStatusesEnum::REJECTED,
-            PayNowOrderStatusesEnum::CANCEL,
-            PayNowOrderStatusesEnum::ERROR,
-            PayNowOrderStatusesEnum::EXPIRED,
-            PayNowOrderStatusesEnum::ABANDONED => TransactionStateTransition::FAILED,
-            default => TransactionStateTransition::NONE,
-        };
+        $mapped = PayNowOrderStatusesEnum::tryFrom($status);
+
+        if ($mapped === null) {
+            $this->logger->warning('PayNow sent a status this plugin does not know', [
+                'status' => $status,
+            ]);
+
+            return TransactionStateTransition::NONE;
+        }
+
+        // isFailure() covers CANCELLED as well as CANCEL. The SDK spells it CANCELLED and
+        // this enum only had CANCEL, so a payment the customer cancelled at PayNow matched
+        // no case here, fell through to NONE, and left the transaction open for good.
+        if ($mapped->isFailure()) {
+            return TransactionStateTransition::FAILED;
+        }
+
+        return $mapped === PayNowOrderStatusesEnum::CONFIRMED
+            ? TransactionStateTransition::PAID
+            : TransactionStateTransition::NONE;
     }
 
     private function lookupOrderTransaction(

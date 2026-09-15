@@ -11,16 +11,14 @@ declare(strict_types=1);
 
 namespace Crehler\PayNow\Services;
 
+use Crehler\PaymentBundle\Domain\Enum\PaymentType;
 use Crehler\PaymentBundle\Infrastructure\Provider\{AbstractPaymentSubMethodProvider, RawSubMethod};
-use Crehler\PayNow\Handler\BankHandler;
 use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
 use Paynow\Exception\PaynowException;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Payment\PaymentMethodEntity;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Throwable;
-
-use function in_array;
 
 /**
  * Provides PayNow PBL bank channels as sub-methods for the PayNow Bank handler.
@@ -29,22 +27,15 @@ use function in_array;
  */
 final class PayNowPaymentSubMethodsService extends AbstractPaymentSubMethodProvider
 {
-    /**
-     * @var mixed[]
-     */
-    private const SUPPORTED_HANDLERS = [
-        BankHandler::class,
-    ];
-
     public function __construct(
         private PayNowFactory $payNowFactory,
         private LoggerInterface $logger,
     ) {
     }
 
-    public function supportsPaymentMethod(PaymentMethodEntity $paymentMethodEntity): bool
+    public function supportedPaymentTypes(): array
     {
-        return in_array($paymentMethodEntity->getHandlerIdentifier(), self::SUPPORTED_HANDLERS, true);
+        return [PaymentType::PAY_BY_LINK];
     }
 
     protected function fetchRawSubMethods(

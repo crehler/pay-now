@@ -14,8 +14,9 @@ namespace Crehler\PayNow\Handler;
 use Crehler\PaymentBundle\Application\Port\Driven\{OrderTransactionRepositoryInterface, PaymentSubMethodSessionResolverPort};
 use Crehler\PaymentBundle\Application\Port\Driving\OrderTransactionServicePort;
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\OrderTransaction;
+use Crehler\PaymentBundle\Domain\Enum\PaymentType;
 use Crehler\PaymentBundle\Infrastructure\Handler\{AbstractPaymentMethodHandler, PaymentResult};
-use Crehler\PaymentBundle\Shared\{EnhancedLogger, FinalizeTokenService, Serializer};
+use Crehler\PaymentBundle\Shared\{EnhancedLogger, FinalizeTokenService};
 use Crehler\PayNow\Factory\TransactionDtoFactory;
 use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
 use Crehler\PayNow\Services\IdempotencyKeyService;
@@ -28,6 +29,8 @@ use Symfony\Component\Routing\RouterInterface;
 #[AutoconfigureTag('shopware.payment.method.async')]
 final class BankHandler extends AbstractPaymentMethodHandler
 {
+    use RejectsTerminalGatewayStatus;
+
     public function __construct(
         EnhancedLogger $logger,
         RouterInterface $router,
@@ -47,6 +50,17 @@ final class BankHandler extends AbstractPaymentMethodHandler
             $paymentSubMethodSessionResolver,
             $orderTransactionRepository,
         );
+    }
+
+    public static function paymentType(): PaymentType
+    {
+        return PaymentType::PAY_BY_LINK;
+    }
+
+    /** The PBL bank list comes from the gateway. */
+    public static function usesGatewayChannels(): bool
+    {
+        return true;
     }
 
     protected function getPaymentProviderName(): string
@@ -84,7 +98,7 @@ final class BankHandler extends AbstractPaymentMethodHandler
             paymentMethodId: $paymentSubMethodId
         );
 
-        $normalizedTransaction = Serializer::getSerializer()->normalize($transactionDto, 'json');
+        $normalizedTransaction = $this->transactionDtoFactory->normalize($transactionDto);
 
         // Use the order's sales channel so the SDK picks per-channel credentials/environment
         // rather than the global default (sandbox/production split safety).
@@ -93,6 +107,16 @@ final class BankHandler extends AbstractPaymentMethodHandler
             ->authorize($normalizedTransaction, $idempotencyKey);
 
         $this->persistGatewayPaymentId($transaction->getOrderTransactionId(), $result->getPaymentId(), $context);
+
+        // PayNow answers the authorization with a status, and until now nothing here read
+        // it: a payment the gateway had already rejected came back as a success with no
+        // redirect URL, which the shared flow reads as "accepted, the webhook will finish
+        // it". For a rejected payment no webhook ever arrives.
+        $rejection = $this->failIfGatewayRejected((string) $result->getStatus(), 'bank transfer');
+
+        if ($rejection !== null) {
+            return $rejection;
+        }
 
         return PaymentResult::success(
             redirectUrl: $result->getRedirectUrl() ?? '',

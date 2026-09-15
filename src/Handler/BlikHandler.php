@@ -14,9 +14,9 @@ namespace Crehler\PayNow\Handler;
 use Crehler\PaymentBundle\Application\Port\Driven\{OrderTransactionRepositoryInterface, PaymentSubMethodSessionResolverPort};
 use Crehler\PaymentBundle\Application\Port\Driving\OrderTransactionServicePort;
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\OrderTransaction;
+use Crehler\PaymentBundle\Domain\Enum\PaymentType;
 use Crehler\PaymentBundle\Infrastructure\Handler\{AbstractPaymentMethodHandler, PaymentResult};
-use Crehler\PaymentBundle\Shared\{EnhancedLogger, FinalizeTokenService, Serializer};
-use Crehler\PayNow\Enums\PayNowOrderStatusesEnum;
+use Crehler\PaymentBundle\Shared\{EnhancedLogger, FinalizeTokenService};
 use Crehler\PayNow\Factory\TransactionDtoFactory;
 use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
 use Crehler\PayNow\Services\IdempotencyKeyService;
@@ -30,12 +30,12 @@ use Symfony\Component\Routing\RouterInterface;
 use Throwable;
 
 use function is_string;
-use function sprintf;
-use function strtoupper;
 
 #[AutoconfigureTag('shopware.payment.method.async')]
 final class BlikHandler extends AbstractPaymentMethodHandler
 {
+    use RejectsTerminalGatewayStatus;
+
     public function __construct(
         EnhancedLogger $logger,
         RouterInterface $router,
@@ -87,6 +87,17 @@ final class BlikHandler extends AbstractPaymentMethodHandler
         ?Struct $validateStruct,
     ): ?RedirectResponse {
         return $this->payViaBlikAuthorize($request, $transaction, $context);
+    }
+
+    public static function paymentType(): PaymentType
+    {
+        return PaymentType::BLIK;
+    }
+
+    /** BLIK is a code-entry payment with no channels to choose. */
+    public static function usesGatewayChannels(): bool
+    {
+        return false;
     }
 
     protected function getPaymentProviderName(): string
@@ -143,7 +154,7 @@ final class BlikHandler extends AbstractPaymentMethodHandler
             authorizationCode: $authorizationCode,
         );
 
-        $normalizedTransaction = Serializer::getSerializer()->normalize($transactionDto, 'json');
+        $normalizedTransaction = $this->transactionDtoFactory->normalize($transactionDto);
 
         $this->logger->debug('PayNow BLIK request prepared', [
             'orderTransactionId' => $transaction->getOrderTransactionId(),
@@ -169,10 +180,10 @@ final class BlikHandler extends AbstractPaymentMethodHandler
         // rejected BLIK code still produced a success result: the Store API answered
         // success=true with an empty error field and the customer was redirected to a
         // finish page carrying the failure in its query string (WT-910).
-        if ($this->isRejected($gatewayStatus)) {
-            return PaymentResult::failure(
-                sprintf('PayNow rejected the BLIK payment with status "%s"', $gatewayStatus)
-            );
+        $rejection = $this->failIfGatewayRejected($gatewayStatus, 'BLIK');
+
+        if ($rejection !== null) {
+            return $rejection;
         }
 
         // A BLIK authorized on a T6 code has no redirect (PENDING, redirectUrl null);
@@ -184,31 +195,6 @@ final class BlikHandler extends AbstractPaymentMethodHandler
             redirectUrl: $result->getRedirectUrl() ?? '',
             gatewayOrderId: $result->getPaymentId()
         );
-    }
-
-    /**
-     * Did the gateway refuse the payment outright?
-     *
-     * PayNowOrderStatusesEnum holds exactly the terminal statuses (CONFIRMED plus the
-     * five rejections), so it is the single place both this handler and the webhook
-     * subscriber agree on. NEW and PENDING are deliberately absent — they mean the
-     * payment is in flight, which is the normal answer to a T6 authorization. An
-     * unmapped status is treated as in-flight and left to the webhook, so a status the
-     * gateway adds later cannot start failing payments on its own.
-     */
-    private function isRejected(string $gatewayStatus): bool
-    {
-        $status = PayNowOrderStatusesEnum::tryFrom(strtoupper($gatewayStatus));
-
-        if ($status === null) {
-            $this->logger->warning('PayNow returned an unmapped BLIK status; treating as in flight', [
-                'status' => $gatewayStatus,
-            ]);
-
-            return false;
-        }
-
-        return $status !== PayNowOrderStatusesEnum::CONFIRMED;
     }
 
     /**

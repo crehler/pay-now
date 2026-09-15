@@ -18,8 +18,15 @@ final readonly class TransactionBuyerDto
         private string $firstName,
         private string $lastName,
         private TransactionBuyerPhoneDto $phone,
-        private string $locale,
+        /**
+         * BCP47, max 35 characters. Null is dropped from the payload and PayNow applies
+         * its own documented default (pl-PL) — which is the whole point of sending null
+         * rather than the empty string this used to carry: "" is not a valid tag, it just
+         * happened not to be rejected.
+         */
+        private ?string $locale,
         private ?string $deviceFingerprint = null,
+        private ?TransactionBuyerAddressDto $address = null,
     ) {
     }
 
@@ -43,7 +50,7 @@ final readonly class TransactionBuyerDto
         return $this->phone;
     }
 
-    public function getLocale(): string
+    public function getLocale(): ?string
     {
         return $this->locale;
     }
@@ -51,5 +58,10 @@ final readonly class TransactionBuyerDto
     public function getDeviceFingerprint(): ?string
     {
         return $this->deviceFingerprint;
+    }
+
+    public function getAddress(): ?TransactionBuyerAddressDto
+    {
+        return $this->address;
     }
 }

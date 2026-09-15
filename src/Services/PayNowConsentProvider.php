@@ -61,13 +61,20 @@ final readonly class PayNowConsentProvider implements ConsentProvider
                 return null;
             }
 
-            // PayNow's data-processing notices are an information obligation (RODO),
-            // not a consent to tick — surface them as an informational disclosure.
+            // Rendered as a required checkbox, matching Tpay and ING Pay: the customer
+            // ticks the gateway's clauses before the order button will submit.
+            //
+            // Worth knowing what this changes. These come from PayNow's data-processing
+            // endpoint and read as an information obligation under GDPR art. 13 — the kind
+            // of notice a controller has to present rather than collect agreement to, which
+            // is why they were shown as a passive disclosure until now. Ticking one is not
+            // what makes the notice effective. If PayNow's clauses stay purely
+            // informational, flipping this back to false is the whole change.
             return new ConsentStruct(
                 content: $clauses->getContent(),
                 locale: $clauses->getLocale(),
                 title: $clauses->getTitle(),
-                requiresAcceptance: false,
+                requiresAcceptance: true,
             );
         } catch (Throwable $e) {
             $this->logger->error('Failed to fetch PayNow consent', [

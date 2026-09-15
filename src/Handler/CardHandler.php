@@ -15,8 +15,9 @@ use Crehler\PaymentBundle\Application\Port\Driven\{OrderTransactionRepositoryInt
 use Crehler\PaymentBundle\Application\Port\Driving\OrderTransactionServicePort;
 use Crehler\PaymentBundle\Application\Service\StoredCardService;
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\OrderTransaction;
+use Crehler\PaymentBundle\Domain\Enum\PaymentType;
 use Crehler\PaymentBundle\Infrastructure\Handler\{AbstractPaymentMethodHandler, PaymentResult};
-use Crehler\PaymentBundle\Shared\{EnhancedLogger, FinalizeTokenService, Serializer};
+use Crehler\PaymentBundle\Shared\{EnhancedLogger, FinalizeTokenService};
 use Crehler\PayNow\Factory\TransactionDtoFactory;
 use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
 use Crehler\PayNow\Services\IdempotencyKeyService;
@@ -33,6 +34,8 @@ use function is_string;
 #[AutoconfigureTag('shopware.payment.method.async')]
 final class CardHandler extends AbstractPaymentMethodHandler
 {
+    use RejectsTerminalGatewayStatus;
+
     public function __construct(
         EnhancedLogger $logger,
         RouterInterface $router,
@@ -53,6 +56,17 @@ final class CardHandler extends AbstractPaymentMethodHandler
             $paymentSubMethodSessionResolver,
             $orderTransactionRepository,
         );
+    }
+
+    public static function paymentType(): PaymentType
+    {
+        return PaymentType::CARD;
+    }
+
+    /** Cards have no channel list; saved cards are a separate mechanism. */
+    public static function usesGatewayChannels(): bool
+    {
+        return false;
     }
 
     protected function getPaymentProviderName(): string
@@ -120,7 +134,7 @@ final class CardHandler extends AbstractPaymentMethodHandler
             paymentMethodToken: $savedCardToken,
         );
 
-        $normalizedTransaction = Serializer::getSerializer()->normalize($transactionDto, 'json');
+        $normalizedTransaction = $this->transactionDtoFactory->normalize($transactionDto);
 
         $this->logger->debug('PayNow Card request prepared', [
             'orderTransactionId' => $transaction->getOrderTransactionId(),
@@ -139,6 +153,15 @@ final class CardHandler extends AbstractPaymentMethodHandler
         ]);
 
         $this->persistGatewayPaymentId($transaction->getOrderTransactionId(), $result->getPaymentId(), $context);
+
+        // A card accepted without 3DS legitimately has no redirect URL, so the missing URL
+        // cannot be the failure signal here — the status is. Without this check a declined
+        // card produced exactly the same PaymentResult as an approved frictionless one.
+        $rejection = $this->failIfGatewayRejected((string) $result->getStatus(), 'card');
+
+        if ($rejection !== null) {
+            return $rejection;
+        }
 
         return PaymentResult::success(
             redirectUrl: $result->getRedirectUrl() ?? '',
