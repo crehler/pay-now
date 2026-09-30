@@ -137,6 +137,11 @@ final readonly class TransactionDtoFactory
      * (handles diffs larger than one minor unit from rounding/discounts/hybrid
      * payments), then map the gateway-agnostic items to PayNow's DTO shape.
      *
+     * `price` is the price of ONE unit — PayNow's schema says "single item price" and
+     * carries the quantity separately, as every official PayNow plugin sends it. The line
+     * total went there before, so a basket with 3 × 100 zł reached PayNow (and PayPo's
+     * underwriting) as 3 × 300 zł.
+     *
      * @param array<LineItem> $lineItems
      *
      * @return array<TransactionOrderDto>
@@ -151,7 +156,7 @@ final readonly class TransactionDtoFactory
                 name: $item->name,
                 category: $item->category ?? '',
                 quantity: $item->quantity,
-                price: $item->getTotalPrice(),
+                price: $item->unitPrice,
             ),
             $reconciled,
         );

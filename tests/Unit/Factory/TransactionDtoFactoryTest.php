@@ -16,7 +16,7 @@ use Crehler\PaymentBundle\Application\Service\TransactionDescriptionRenderer;
 use Crehler\PaymentBundle\Domain\Entity\Customer;
 use Crehler\PaymentBundle\Domain\Entity\Order\{BillingAddress, Order, ShippingAddress};
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\{OrderTransaction, PaymentMethod, PaymentStatus};
-use Crehler\PaymentBundle\Domain\ValueObjects\Money;
+use Crehler\PaymentBundle\Domain\ValueObjects\{LineItem, Money};
 use Crehler\PaymentBundle\Shared\EnhancedLogger;
 use Crehler\PayNowPayment\Factory\TransactionDtoFactory;
 use Crehler\PayNowPayment\Handler\BankHandler;
@@ -36,6 +36,30 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  */
 final class TransactionDtoFactoryTest extends TestCase
 {
+    /**
+     * PayNow multiplies price by quantity itself — price must be the unit price.
+     */
+    public function testOrderItemsCarryTheUnitPriceNotTheLineTotal(): void
+    {
+        $item = new LineItem(
+            id: '019ed0356345700000000000000000e1',
+            productId: '019ed0356345700000000000000000e2',
+            productNumber: 'SW10001',
+            label: 'Kubek',
+            quantity: 3,
+            unitPrice: new Money(4115, 'PLN'),
+            totalPrice: new Money(12345, 'PLN'),
+            taxRate: 23.0,
+            type: 'product',
+        );
+
+        $orderItems = $this->payload(lineItems: [$item])['orderItems'];
+
+        self::assertSame([
+            ['name' => 'Kubek', 'category' => 'product', 'quantity' => 3, 'price' => 4115],
+        ], $orderItems);
+    }
+
     public function testEveryPaymentCarriesTheBillingAddress(): void
     {
         $payload = $this->payload();
@@ -129,6 +153,7 @@ final class TransactionDtoFactoryTest extends TestCase
         string $street = 'Kwiatowa 5/3',
         bool $withDelivery = true,
         ?string $locale = 'pl-PL',
+        array $lineItems = [],
     ): array {
         $shippingAddress = null;
 
@@ -147,7 +172,7 @@ final class TransactionDtoFactoryTest extends TestCase
 
         $factory = $this->factory();
         $dto = $factory->createTransactionDto(
-            orderTransaction: $this->orderTransaction($street, $shippingAddress, $locale),
+            orderTransaction: $this->orderTransaction($street, $shippingAddress, $locale, $lineItems),
             returnUrl: 'https://shop.example.com/return',
             transactionId: '019ed0356345700000000000000000d2',
         );
@@ -177,6 +202,7 @@ final class TransactionDtoFactoryTest extends TestCase
         string $street,
         ?ShippingAddress $shippingAddress,
         ?string $locale,
+        array $lineItems = [],
     ): OrderTransaction
     {
         $order = new Order(
@@ -204,7 +230,7 @@ final class TransactionDtoFactoryTest extends TestCase
                 countryName: 'Polska',
                 phone: '+48123456789',
             ),
-            lineItems: [],
+            lineItems: $lineItems,
             salesChannelId: '019ed035634570b09e40580c5ba4654a',
             shippingAddress: $shippingAddress,
             locale: $locale,

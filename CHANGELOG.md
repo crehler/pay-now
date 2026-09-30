@@ -33,6 +33,10 @@
 
 ### Fixed
 
+- **Basket sent with line totals as unit prices.** `orderItems[].price` is the price of one
+  unit in PayNow's schema (the gateway multiplies it by `quantity`), but the plugin sent the
+  line total there — a basket of 3 × 100 zł reached PayNow, and PayPo's underwriting, as
+  3 × 300 zł. The unit price goes out now.
 - **Retrying with a different bank opened the previously chosen one.** The idempotency key
   was derived from the order transaction alone, and Shopware reopens that same transaction
   when a customer retries with the same payment method — so a switch from one bank to
