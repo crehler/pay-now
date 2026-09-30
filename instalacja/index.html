@@ -378,6 +378,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#aktualizacja-z-wersji-4x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aktualizacja z wersji 4.x
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#wsparcie" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -535,6 +546,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#aktualizacja-z-wersji-4x" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aktualizacja z wersji 4.x
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#wsparcie" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -608,23 +630,40 @@
 </code></pre></div>
 <p><strong>2. Aktywuj w Shopware:</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>bin/console<span class="w"> </span>plugin:refresh
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>bin/console<span class="w"> </span>plugin:install<span class="w"> </span>--activate<span class="w"> </span>CrehlerPayNow
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>bin/console<span class="w"> </span>plugin:install<span class="w"> </span>--activate<span class="w"> </span>CrehlerPayNowPayment
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>bin/console<span class="w"> </span>cache:clear
 </code></pre></div>
 <p><strong>3.</strong> Wtyczka pojawi się w <strong>Rozszerzenia → Moje rozszerzenia</strong> jako <em>„Bramka płatności PayNow"</em>.</p>
 <p>➡️ Przejdź do <strong><a href="../konfiguracja/">Instrukcji konfiguracji</a></strong>.</p>
 <hr />
 <h2 id="metoda-2-paczka-zip">Metoda 2 — Paczka ZIP<a class="headerlink" href="#metoda-2-paczka-zip" title="Permanent link">&para;</a></h2>
-<p><strong>1.</strong> Pobierz wtyczkę <strong><a href="https://github.com/crehler/pay-now/releases/latest/download/CrehlerPayNow.zip">CrehlerPayNow.zip</a></strong>.</p>
+<p><strong>1.</strong> Pobierz wtyczkę <strong><a href="https://github.com/crehler/pay-now/releases/latest/download/CrehlerPayNowPayment.zip">CrehlerPayNowPayment.zip</a></strong>.</p>
 <p><strong>2.</strong> W <strong>Rozszerzenia → Moje rozszerzenia</strong> kliknij <strong>„Prześlij rozszerzenie"</strong>.</p>
 <p><img alt="Moje rozszerzenia — przycisk „Prześlij rozszerzenie&quot;" src="../images/16-zip-open.png" /></p>
 <p><strong>3.</strong> Potwierdź ostrzeżenie o rozszerzeniu spoza Sklepu Shopware — kliknij <strong>„potwierdź"</strong>.</p>
 <p><img alt="Ostrzeżenie o rozszerzeniu spoza Sklepu Shopware z przyciskiem „potwierdź&quot;" src="../images/17-zip-warning.png" /></p>
-<p><strong>4.</strong> Wskaż pobrany plik <strong><code>CrehlerPayNow.zip</code></strong>.</p>
-<p><img alt="Okno wyboru pliku z zaznaczonym CrehlerPayNow.zip" src="../images/18-zip-select.png" /></p>
+<p><strong>4.</strong> Wskaż pobrany plik <strong><code>CrehlerPayNowPayment.zip</code></strong>.</p>
+<p><img alt="Okno wyboru pliku z zaznaczonym CrehlerPayNowPayment.zip" src="../images/18-zip-select.png" /></p>
 <p><strong>5.</strong> Wtyczka pojawi się na liście jako <em>„Bramka płatności PayNow"</em> — kliknij <strong>„Zainstaluj"</strong>, a następnie <strong>„Aktywuj"</strong>.</p>
 <p><img alt="Wtyczka „Bramka płatności PayNow&quot; na liście Moje rozszerzenia z przyciskiem „Zainstaluj&quot;" src="../images/19-zip-install.png" /></p>
 <p>➡️ Przejdź do <strong><a href="../konfiguracja/">Instrukcji konfiguracji</a></strong>.</p>
+<hr />
+<h2 id="aktualizacja-z-wersji-4x">Aktualizacja z wersji 4.x<a class="headerlink" href="#aktualizacja-z-wersji-4x" title="Permanent link">&para;</a></h2>
+<p>Wersja 6 to nowa wtyczka pod tą samą nazwą — Shopware zaproponuje ją jako zwykłą aktualizację.
+Podczas aktualizacji wtyczka:</p>
+<ul>
+<li><strong>wyłącza starą metodę płatności „paynow"</strong> — zostaje w systemie, bo odwołują się do niej
+  wcześniejsze zamówienia, ale nie jest już oferowana klientom;</li>
+<li><strong>przenosi klucze API</strong> — jeśli w 4.x był włączony tryb sandbox, klucze trafiają do pól
+  sandbox, w przeciwnym razie do pól produkcyjnych.</li>
+</ul>
+<p>Po aktualizacji:</p>
+<ol>
+<li>Przypisz nowe metody płatności (BLIK, przelew bankowy, karta, PayPo) do kanałów sprzedaży
+   w <strong>Ustawienia → Kanały sprzedaży</strong> i zmień domyślną metodę płatności, jeśli była nią stara „paynow".</li>
+<li>Sprawdź konfigurację wtyczki i kliknij <strong>„Testuj połączenie"</strong>.</li>
+<li>W panelu PayNow ustaw adresy powiadomień podane w konfiguracji wtyczki — zmieniły się względem 4.x.</li>
+</ol>
 <hr />
 <h2 id="wsparcie">Wsparcie<a class="headerlink" href="#wsparcie" title="Permanent link">&para;</a></h2>
 <p>Problem z instalacją? Napisz do nas: <strong><a href="mailto:support@crehler.com">support@crehler.com</a></strong></p>
