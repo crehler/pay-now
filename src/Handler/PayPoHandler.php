@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Handler;
+namespace Crehler\PayNowPayment\Handler;
 
 use Crehler\PaymentBundle\Application\Port\Driven\{OrderTransactionRepositoryInterface, PaymentSubMethodSessionResolverPort};
 use Crehler\PaymentBundle\Application\Port\Driving\OrderTransactionServicePort;
@@ -17,10 +17,10 @@ use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\OrderTransaction;
 use Crehler\PaymentBundle\Domain\Enum\PaymentType;
 use Crehler\PaymentBundle\Infrastructure\Handler\{AbstractPaymentMethodHandler, PaymentResult};
 use Crehler\PaymentBundle\Shared\{EnhancedLogger, FinalizeTokenService};
-use Crehler\PayNow\Constant\Methods;
-use Crehler\PayNow\Factory\TransactionDtoFactory;
-use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
-use Crehler\PayNow\Services\IdempotencyKeyService;
+use Crehler\PayNowPayment\Constant\Methods;
+use Crehler\PayNowPayment\Factory\TransactionDtoFactory;
+use Crehler\PayNowPayment\Infrastructure\Client\PayNowFactory;
+use Crehler\PayNowPayment\Services\IdempotencyKeyService;
 use Shopware\Core\Checkout\Payment\Cart\PaymentTransactionStruct;
 use Shopware\Core\Framework\Context;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;

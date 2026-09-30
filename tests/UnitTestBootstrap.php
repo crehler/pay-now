@@ -27,6 +27,6 @@ if ($autoloadPath === null) {
 
 /** @var \Composer\Autoload\ClassLoader $loader */
 $loader = require $autoloadPath;
-$loader->addPsr4('Crehler\\PayNow\\Tests\\', __DIR__);
+$loader->addPsr4('Crehler\\PayNowPayment\\Tests\\', __DIR__);
 // The plugin may not be composer-installed in the shop root — register src for unit tests.
-$loader->addPsr4('Crehler\\PayNow\\', __DIR__ . '/../src');
+$loader->addPsr4('Crehler\\PayNowPayment\\', __DIR__ . '/../src');

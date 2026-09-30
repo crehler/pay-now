@@ -4,7 +4,7 @@
     {{ parent() }}
     {% sw_include '@CrehlerPaymentBundle/storefront/component/payment/check-payment.html.twig' with {
         paymentMethodName: 'paynow',
-        imgPath: asset('icons/paynow_logo.png', '@CrehlerPayNow'),
+        imgPath: asset('icons/paynow_logo.png', '@CrehlerPayNowPayment'),
         altImg: 'PayNow logo'
     } %}
 {% endblock %}

@@ -9,14 +9,14 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Application\Service;
+namespace Crehler\PayNowPayment\Application\Service;
 
 use Crehler\PaymentBundle\Application\DTO\GatewayDetails\{GatewayPaymentDetails, GatewayStatusLevel};
 use Crehler\PaymentBundle\Application\Port\Driven\GatewayPaymentDetailsProviderInterface;
 use Crehler\PaymentBundle\Domain\Constant\PaymentCustomFields;
 use Crehler\PaymentBundle\Shared\EnhancedLogger;
-use Crehler\PayNow\Handler\{BankHandler, BlikHandler, CardHandler};
-use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
+use Crehler\PayNowPayment\Handler\{BankHandler, BlikHandler, CardHandler};
+use Crehler\PayNowPayment\Infrastructure\Client\PayNowFactory;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Throwable;
 

@@ -3,7 +3,7 @@ services:
         autowire: true
         autoconfigure: true
 
-    Crehler\PayNow\:
+    Crehler\PayNowPayment\:
         resource: '../../../src/'
         exclude:
             - '../../../src/Constant/'

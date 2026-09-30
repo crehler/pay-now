@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Constant;
+namespace Crehler\PayNowPayment\Constant;
 
 final class CustomFields
 {

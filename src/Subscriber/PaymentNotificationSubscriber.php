@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Subscriber;
+namespace Crehler\PayNowPayment\Subscriber;
 
 use Crehler\PaymentBundle\Application\Service\TransactionStateApplier;
 use Crehler\PaymentBundle\Domain\Constant\PaymentCustomFields;
@@ -17,8 +17,8 @@ use Crehler\PaymentBundle\Domain\Event\PaymentNotificationReceivedEvent;
 use Crehler\PaymentBundle\Domain\ValueObjects\TransactionStateTransition;
 use Crehler\PaymentBundle\Infrastructure\Subscriber\AbstractPaymentNotificationSubscriber;
 use Crehler\PaymentBundle\Shared\EnhancedLogger;
-use Crehler\PayNow\Enums\PayNowOrderStatusesEnum;
-use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
+use Crehler\PayNowPayment\Enums\PayNowOrderStatusesEnum;
+use Crehler\PayNowPayment\Infrastructure\Client\PayNowFactory;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;

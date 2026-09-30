@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Entity;
+namespace Crehler\PayNowPayment\Entity;
 
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
 use Shopware\Core\Framework\DataAbstractionLayer\{EntityDefinition, FieldCollection};

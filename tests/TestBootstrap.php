@@ -13,9 +13,9 @@ use Shopware\Core\TestBootstrapper;
 
 $loader = (new TestBootstrapper())
     ->addCallingPlugin()
-    ->addActivePlugins('CrehlerPayNow')
+    ->addActivePlugins('CrehlerPayNowPayment')
     ->setForceInstallPlugins(true)
     ->bootstrap()
     ->getClassLoader();
 
-$loader->addPsr4('Crehler\PayNow\\Tests\\', __DIR__);
+$loader->addPsr4('Crehler\PayNowPayment\\Tests\\', __DIR__);

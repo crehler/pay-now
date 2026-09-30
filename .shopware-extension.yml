@@ -1,0 +1,15 @@
+# Konfiguracja shopware-cli dla `extension zip` (build.yml → FriendsOfShopware/actions).
+# Store wymaga w ZIP-ie wyłącznie artefaktów produkcyjnych — dokumentacja (mkdocs, publikowana
+# osobno przez docs.yml), konfiguracja testów i source mapy z builda FoS nie mają tam czego szukać.
+# shopware-cli przyjmuje tu dokładne ścieżki względem katalogu wtyczki (bez globów).
+build:
+  zip:
+    pack:
+      excludes:
+        paths:
+          - .shopware-extension.yml
+          - docs
+          - mkdocs.yml
+          - phpunit.xml
+          - src/Resources/public/static/css/crehler-pay-now-payment.css.map
+          - src/Resources/public/static/js/crehler-pay-now-payment.js.map

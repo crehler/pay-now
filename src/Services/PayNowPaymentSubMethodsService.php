@@ -9,11 +9,11 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Services;
+namespace Crehler\PayNowPayment\Services;
 
 use Crehler\PaymentBundle\Domain\Enum\PaymentType;
 use Crehler\PaymentBundle\Infrastructure\Provider\{AbstractPaymentSubMethodProvider, RawSubMethod};
-use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
+use Crehler\PayNowPayment\Infrastructure\Client\PayNowFactory;
 use Paynow\Exception\PaynowException;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Payment\PaymentMethodEntity;

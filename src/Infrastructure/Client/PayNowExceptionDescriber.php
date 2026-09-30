@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Infrastructure\Client;
+namespace Crehler\PayNowPayment\Infrastructure\Client;
 
 use Paynow\Exception\PaynowException;
 use Paynow\HttpClient\HttpClientException;

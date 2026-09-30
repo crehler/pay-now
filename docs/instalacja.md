@@ -31,7 +31,7 @@ composer require crehler/pay-now
 
 ```bash
 bin/console plugin:refresh
-bin/console plugin:install --activate CrehlerPayNow
+bin/console plugin:install --activate CrehlerPayNowPayment
 bin/console cache:clear
 ```
 
@@ -43,7 +43,7 @@ bin/console cache:clear
 
 ## Metoda 2 — Paczka ZIP
 
-**1.** Pobierz wtyczkę **[CrehlerPayNow.zip](https://github.com/crehler/pay-now/releases/latest/download/CrehlerPayNow.zip)**.
+**1.** Pobierz wtyczkę **[CrehlerPayNowPayment.zip](https://github.com/crehler/pay-now/releases/latest/download/CrehlerPayNowPayment.zip)**.
 
 **2.** W **Rozszerzenia → Moje rozszerzenia** kliknij **„Prześlij rozszerzenie"**.
 
@@ -53,15 +53,34 @@ bin/console cache:clear
 
 ![Ostrzeżenie o rozszerzeniu spoza Sklepu Shopware z przyciskiem „potwierdź"](images/17-zip-warning.png)
 
-**4.** Wskaż pobrany plik **`CrehlerPayNow.zip`**.
+**4.** Wskaż pobrany plik **`CrehlerPayNowPayment.zip`**.
 
-![Okno wyboru pliku z zaznaczonym CrehlerPayNow.zip](images/18-zip-select.png)
+![Okno wyboru pliku z zaznaczonym CrehlerPayNowPayment.zip](images/18-zip-select.png)
 
 **5.** Wtyczka pojawi się na liście jako *„Bramka płatności PayNow"* — kliknij **„Zainstaluj"**, a następnie **„Aktywuj"**.
 
 ![Wtyczka „Bramka płatności PayNow" na liście Moje rozszerzenia z przyciskiem „Zainstaluj"](images/19-zip-install.png)
 
 ➡️ Przejdź do **[Instrukcji konfiguracji](konfiguracja.md)**.
+
+---
+
+## Aktualizacja z wersji 4.x
+
+Wersja 6 to nowa wtyczka pod tą samą nazwą — Shopware zaproponuje ją jako zwykłą aktualizację.
+Podczas aktualizacji wtyczka:
+
+- **wyłącza starą metodę płatności „paynow"** — zostaje w systemie, bo odwołują się do niej
+  wcześniejsze zamówienia, ale nie jest już oferowana klientom;
+- **przenosi klucze API** — jeśli w 4.x był włączony tryb sandbox, klucze trafiają do pól
+  sandbox, w przeciwnym razie do pól produkcyjnych.
+
+Po aktualizacji:
+
+1. Przypisz nowe metody płatności (BLIK, przelew bankowy, karta, PayPo) do kanałów sprzedaży
+   w **Ustawienia → Kanały sprzedaży** i zmień domyślną metodę płatności, jeśli była nią stara „paynow".
+2. Sprawdź konfigurację wtyczki i kliknij **„Testuj połączenie"**.
+3. W panelu PayNow ustaw adresy powiadomień podane w konfiguracji wtyczki — zmieniły się względem 4.x.
 
 ---
 

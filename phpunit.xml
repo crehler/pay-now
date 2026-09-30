@@ -10,7 +10,7 @@
     <testsuites>
         <!-- tests/TestBootstrap.php is the shop-booting bootstrap for integration tests;
              it needs a database, so it is not what the unit suite runs on. -->
-        <testsuite name="CrehlerPayNow Testsuite">
+        <testsuite name="CrehlerPayNowPayment Testsuite">
             <directory>tests/Unit</directory>
         </testsuite>
     </testsuites>

@@ -1,11 +1,11 @@
 {
   "main.js": {
-    "file": "js/crehler-pay-now.js",
-    "name": "crehler-pay-now",
+    "file": "assets/crehler-pay-now-payment-BESxka9C.js",
+    "name": "crehler-pay-now-payment",
     "src": "main.js",
     "isEntry": true,
     "css": [
-      "css/crehler-pay-now.css"
+      "assets/crehler-pay-now-payment-DaHFxtQa.css"
     ]
   }
 }

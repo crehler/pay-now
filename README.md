@@ -67,7 +67,7 @@ composer require crehler/pay-now
 
 ```bash
 bin/console plugin:refresh
-bin/console plugin:install --activate CrehlerPayNow
+bin/console plugin:install --activate CrehlerPayNowPayment
 bin/console cache:clear
 ```
 

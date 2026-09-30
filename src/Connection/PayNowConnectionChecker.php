@@ -9,11 +9,11 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Connection;
+namespace Crehler\PayNowPayment\Connection;
 
 use Crehler\PaymentBundle\Application\DTO\Connection\ConnectionCheckResult;
 use Crehler\PaymentBundle\Infrastructure\Connection\AbstractGatewayConnectionChecker;
-use Crehler\PayNow\Infrastructure\Client\PayNowExceptionDescriber;
+use Crehler\PayNowPayment\Infrastructure\Client\PayNowExceptionDescriber;
 use Paynow\{Client, Environment};
 use Paynow\Service\Payment;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
@@ -30,7 +30,7 @@ final class PayNowConnectionChecker extends AbstractGatewayConnectionChecker
     /**
      * @var string
      */
-    private const CONFIG_DOMAIN = 'CrehlerPayNow.config';
+    private const CONFIG_DOMAIN = 'CrehlerPayNowPayment.config';
 
     public function __construct(
         SystemConfigService $systemConfigService,

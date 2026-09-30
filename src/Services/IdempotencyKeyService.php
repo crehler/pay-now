@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Services;
+namespace Crehler\PayNowPayment\Services;
 
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\OrderTransaction;
 use Shopware\Core\Framework\Context;

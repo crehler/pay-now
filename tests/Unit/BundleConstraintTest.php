@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Tests\Unit;
+namespace Crehler\PayNowPayment\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 

@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Factory;
+namespace Crehler\PayNowPayment\Factory;
 
 use Crehler\PaymentBundle\Application\DTO\PaymentRequest\OrderItemDTO;
 use Crehler\PaymentBundle\Application\Factory\PaymentRequestDtoFactory;
@@ -19,7 +19,7 @@ use Crehler\PaymentBundle\Domain\Entity\Order\{BillingAddress, ShippingAddress};
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\OrderTransaction;
 use Crehler\PaymentBundle\Domain\ValueObjects\{LineItem, StreetAddress};
 use Crehler\PaymentBundle\Shared\Serializer;
-use Crehler\PayNow\Dto\Transaction\{TransactionAddressDto,
+use Crehler\PayNowPayment\Dto\Transaction\{TransactionAddressDto,
     TransactionBuyerAddressDto,
     TransactionBuyerDto,
     TransactionBuyerPhoneDto,
@@ -37,7 +37,7 @@ final readonly class TransactionDtoFactory
     /**
      * @var string
      */
-    private const CONFIG_DOMAIN = 'CrehlerPayNow.config';
+    private const CONFIG_DOMAIN = 'CrehlerPayNowPayment.config';
 
     /**
      * PayNow's own default when the field is left unconfigured — matches the value

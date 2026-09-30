@@ -9,10 +9,10 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Tests\Unit\Handler;
+namespace Crehler\PayNowPayment\Tests\Unit\Handler;
 
 use Crehler\PaymentBundle\Shared\EnhancedLogger;
-use Crehler\PayNow\Handler\RejectsTerminalGatewayStatus;
+use Crehler\PayNowPayment\Handler\RejectsTerminalGatewayStatus;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;

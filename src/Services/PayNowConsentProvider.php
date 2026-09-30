@@ -9,12 +9,12 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Services;
+namespace Crehler\PayNowPayment\Services;
 
 use Crehler\PaymentBundle\Infrastructure\Port\ConsentProvider;
 use Crehler\PaymentBundle\Infrastructure\Struct\ConsentStruct;
-use Crehler\PayNow\Constant\Methods;
-use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
+use Crehler\PayNowPayment\Constant\Methods;
+use Crehler\PayNowPayment\Infrastructure\Client\PayNowFactory;
 use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Payment\PaymentMethodEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;

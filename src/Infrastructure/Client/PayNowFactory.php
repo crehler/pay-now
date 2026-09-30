@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Infrastructure\Client;
+namespace Crehler\PayNowPayment\Infrastructure\Client;
 
 use Crehler\PaymentBundle\Infrastructure\Client\AbstractGatewayClientFactory;
 use Paynow\{Client, Environment, Notification};
@@ -21,23 +21,23 @@ final class PayNowFactory extends AbstractGatewayClientFactory
     /**
      * @var string
      */
-    private const API_KEY = 'CrehlerPayNow.config.apiKey';
+    private const API_KEY = 'CrehlerPayNowPayment.config.apiKey';
     /**
      * @var string
      */
-    private const SIGNATURE_KEY_LABEL = 'CrehlerPayNow.config.signatureKeyLabel';
+    private const SIGNATURE_KEY_LABEL = 'CrehlerPayNowPayment.config.signatureKeyLabel';
     /**
      * @var string
      */
-    private const SANDBOX_API_KEY = 'CrehlerPayNow.config.sandboxApiKey';
+    private const SANDBOX_API_KEY = 'CrehlerPayNowPayment.config.sandboxApiKey';
     /**
      * @var string
      */
-    private const SANDBOX_SIGNATURE_KEY_LABEL = 'CrehlerPayNow.config.sandboxSignatureKeyLabel';
+    private const SANDBOX_SIGNATURE_KEY_LABEL = 'CrehlerPayNowPayment.config.sandboxSignatureKeyLabel';
     /**
      * @var string
      */
-    private const ENABLE_SANDBOX = 'CrehlerPayNow.config.enableSandbox';
+    private const ENABLE_SANDBOX = 'CrehlerPayNowPayment.config.enableSandbox';
 
     /**
      * @throws ConfigurationException

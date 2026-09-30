@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Dto\Transaction;
+namespace Crehler\PayNowPayment\Dto\Transaction;
 
 /**
  * One address in PayNow's buyer.address — either the billing or the shipping half.

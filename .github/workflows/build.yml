@@ -16,7 +16,7 @@ jobs:
     if: github.repository != 'crehler-com/PayNowPaymentBundle'
     uses: FriendsOfShopware/actions/.github/workflows/github.yml@main
     with:
-      extensionName: CrehlerPayNow
+      extensionName: CrehlerPayNowPayment
       shopwareVersion: '6.7.0'
     secrets:
       ghToken: ${{ secrets.GITHUB_TOKEN }}

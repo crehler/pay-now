@@ -9,10 +9,10 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Storefront;
+namespace Crehler\PayNowPayment\Storefront;
 
 use Crehler\PaymentBundle\Application\Port\Driven\CardFormTemplateProviderPort;
-use Crehler\PayNow\Handler\CardHandler;
+use Crehler\PayNowPayment\Handler\CardHandler;
 
 use function in_array;
 
@@ -39,6 +39,6 @@ final class PayNowCardFormTemplateProvider implements CardFormTemplateProviderPo
 
     public function getTemplate(): string
     {
-        return '@CrehlerPayNow/storefront/component/payment/paynow-card-form.html.twig';
+        return '@CrehlerPayNowPayment/storefront/component/payment/paynow-card-form.html.twig';
     }
 }

@@ -3,7 +3,7 @@
     "description": "PayNow Shopware Integration",
     "type": "shopware-platform-plugin",
     "license": "proprietary",
-    "version": "6.6.0",
+    "version": "6.6.1",
     "authors": [
         {
             "name": "Crehler Sp. z o. o.",
@@ -23,11 +23,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Crehler\\PayNow\\": "src/"
+            "Crehler\\PayNowPayment\\": "src/"
         }
     },
     "extra": {
-        "shopware-plugin-class": "Crehler\\PayNow\\CrehlerPayNow",
+        "shopware-plugin-class": "Crehler\\PayNowPayment\\CrehlerPayNowPayment",
         "plugin-icon": "src/Resources/config/paynowpayment.png",
         "label": {
             "de-DE": "Zahlungsgateway PayNow",
@@ -35,9 +35,9 @@
             "pl-PL": "Bramka płatności PayNow"
         },
         "description": {
-            "de-DE": "PayNow ist der Payment Service Provider der mBank. Schnelle und sichere Online-Zahlungen für Ihren Shop.",
-            "en-GB": "PayNow is mBank's payment service provider. Fast and secure online payments for your store.",
-            "pl-PL": "PayNow to operator płatności mBanku. Szybkie i bezpieczne płatności online dla Twojego sklepu."
+            "de-DE": "PayNow von mBank für Shopware: BLIK direkt im Checkout, Pay-by-Link-Überweisungen, Kartenzahlungen und PayPo-Ratenkauf, dazu Erstattungen und automatische Statusupdates.",
+            "en-GB": "PayNow by mBank for Shopware: BLIK codes right in checkout, pay-by-link bank transfers, card payments and PayPo deferred payments, plus refunds and automatic status updates.",
+            "pl-PL": "PayNow od mBanku dla Shopware: BLIK wpisywany w koszyku, szybkie przelewy pay-by-link, płatności kartą i odroczone płatności PayPo, a także zwroty i automatyczna aktualizacja statusów."
         },
         "manufacturerLink": {
             "de-DE": "https://crehler.com/",
@@ -55,6 +55,9 @@
         "crehler/payment-bundle": "6.6.*",
         "pay-now/paynow-php-sdk": "^2.4",
         "shopware/core": "~6.6 || ~6.7"
+    },
+    "replace": {
+        "crehler-pay-now-payment/shopware-integration": "*"
     },
     "require-dev": {
         "rector/rector": "^2.4"

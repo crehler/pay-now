@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Enums;
+namespace Crehler\PayNowPayment\Enums;
 
 /**
  * PayNow's payment statuses, mirroring Paynow\Model\Payment\Status in the SDK.

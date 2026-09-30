@@ -9,10 +9,10 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Handler;
+namespace Crehler\PayNowPayment\Handler;
 
 use Crehler\PaymentBundle\Infrastructure\Handler\PaymentResult;
-use Crehler\PayNow\Enums\PayNowOrderStatusesEnum;
+use Crehler\PayNowPayment\Enums\PayNowOrderStatusesEnum;
 
 use function sprintf;
 use function strtoupper;

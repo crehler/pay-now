@@ -9,14 +9,14 @@
 
 declare(strict_types=1);
 
-namespace Crehler\PayNow\Tests\Unit\Infrastructure\Util\Install;
+namespace Crehler\PayNowPayment\Tests\Unit\Infrastructure\Util\Install;
 
 use Crehler\PaymentBundle\Domain\Enum\PaymentType;
 use Crehler\PaymentBundle\Infrastructure\Handler\AbstractPaymentMethodHandler;
 use Crehler\PaymentBundle\Infrastructure\Util\Lifecycle\ShopwarePaymentMethod;
-use Crehler\PayNow\Constant\Methods;
-use Crehler\PayNow\Handler\PayPoHandler;
-use Crehler\PayNow\Infrastructure\Util\Install\PayPo;
+use Crehler\PayNowPayment\Constant\Methods;
+use Crehler\PayNowPayment\Handler\PayPoHandler;
+use Crehler\PayNowPayment\Infrastructure\Util\Install\PayPo;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -50,7 +50,7 @@ final class PaymentMethodDeclarationTest extends TestCase
         $cases = [];
 
         foreach (glob(__DIR__ . '/../../../../../src/Infrastructure/Util/Install/*.php') ?: [] as $file) {
-            $class = 'Crehler\\PayNow\\Infrastructure\\Util\\Install\\' . pathinfo($file, PATHINFO_FILENAME);
+            $class = 'Crehler\\PayNowPayment\\Infrastructure\\Util\\Install\\' . pathinfo($file, PATHINFO_FILENAME);
 
             if (class_exists($class) && is_subclass_of($class, ShopwarePaymentMethod::class)) {
                 $cases[basename($file)] = [$class];

@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Constant;
+namespace Crehler\PayNowPayment\Constant;
 
 final class Currency
 {
@@ -41,7 +41,7 @@ final class Currency
 
     /**
      * Single source of truth for the currencies PayNow supports — consumed by
-     * {@see \Crehler\PayNow\Infrastructure\Util\Install\SupportCurrency}
+     * {@see \Crehler\PayNowPayment\Infrastructure\Util\Install\SupportCurrency}
      * so the install rule and this list cannot drift apart.
      *
      * @var array<int, string>

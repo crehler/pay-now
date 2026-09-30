@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Crehler\PayNow\Tests\Unit\Factory;
+namespace Crehler\PayNowPayment\Tests\Unit\Factory;
 
 use Crehler\PaymentBundle\Application\Factory\PaymentRequestDtoFactory;
 use Crehler\PaymentBundle\Application\Service\TransactionDescriptionRenderer;
@@ -18,8 +18,8 @@ use Crehler\PaymentBundle\Domain\Entity\Order\{BillingAddress, Order, ShippingAd
 use Crehler\PaymentBundle\Domain\Entity\OrderTransaction\{OrderTransaction, PaymentMethod, PaymentStatus};
 use Crehler\PaymentBundle\Domain\ValueObjects\Money;
 use Crehler\PaymentBundle\Shared\EnhancedLogger;
-use Crehler\PayNow\Factory\TransactionDtoFactory;
-use Crehler\PayNow\Handler\BankHandler;
+use Crehler\PayNowPayment\Factory\TransactionDtoFactory;
+use Crehler\PayNowPayment\Handler\BankHandler;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;

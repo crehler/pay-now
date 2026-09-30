@@ -9,13 +9,13 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Refund;
+namespace Crehler\PayNowPayment\Refund;
 
 use Crehler\PaymentBundle\Application\Port\Driven\RefundStatusProviderPort;
 use Crehler\PaymentBundle\Domain\ValueObjects\RefundStatus;
 use Crehler\PaymentBundle\Shared\EnhancedLogger;
-use Crehler\PayNow\Handler\{BankHandler, BlikHandler, CardHandler};
-use Crehler\PayNow\Infrastructure\Client\PayNowFactory;
+use Crehler\PayNowPayment\Handler\{BankHandler, BlikHandler, CardHandler};
+use Crehler\PayNowPayment\Infrastructure\Client\PayNowFactory;
 use Paynow\Model\Refund\Status;
 use Shopware\Core\Framework\Context;
 use Throwable;

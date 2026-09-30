@@ -6,6 +6,31 @@
 
 ## Unreleased
 
+### Changed — breaking
+
+- **Technical name `CrehlerPayNow` → `CrehlerPayNowPayment`, namespace `Crehler\PayNow` →
+  `Crehler\PayNowPayment` (WT-1024).** It is the technical name of the plugin already
+  published in the Shopware Store (legacy 4.x line), which cannot be renamed there — so 6.x
+  now ships to those shops as an update. Everything derived from the name moves with it:
+  config domain `CrehlerPayNowPayment.config.*`, Twig/asset namespace `@CrehlerPayNowPayment`,
+  public assets under `bundles/crehlerpaynowpayment/`, the ZIP `CrehlerPayNowPayment.zip`.
+  The Composer package stays `crehler/pay-now`.
+- **Update from 4.x.** The 4.x payment method (handler class that no longer exists) is
+  deactivated — kept, because past orders reference it. Credentials move to the 6.x keys of
+  the environment they were used for (`ApiKey`/`SingatureKeyLabel` → production or sandbox
+  keys, following `EnableSandbox` per sales channel). The new payment methods (BLIK, bank,
+  card, PayPo) have to be assigned to the sales channels by the merchant. `composer.json`
+  replaces the 4.x package `crehler-pay-now-payment/shopware-integration`, without which the
+  Composer run Shopware performs on update fails on the root requirement 4.x left behind.
+- **Install over an early 6.x `CrehlerPayNow`.** Shopware sees a different plugin: the
+  configuration is copied from `CrehlerPayNow.config.*`, payment methods are taken over by
+  technical name. The old `CrehlerPayNow` entry has to be removed from the plugin list.
+
+### Added
+
+- Readable error instead of a class-not-found fatal when Shopware did not install the
+  Composer dependencies (it skips that step without a word on `cluster_setup` shops).
+
 ### Fixed
 
 - **Retrying with a different bank opened the previously chosen one.** The idempotency key

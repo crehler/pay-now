@@ -9,9 +9,9 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Tests\Unit\Enums;
+namespace Crehler\PayNowPayment\Tests\Unit\Enums;
 
-use Crehler\PayNow\Enums\PayNowOrderStatusesEnum;
+use Crehler\PayNowPayment\Enums\PayNowOrderStatusesEnum;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;

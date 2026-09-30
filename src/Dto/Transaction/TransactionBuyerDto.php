@@ -9,7 +9,7 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Dto\Transaction;
+namespace Crehler\PayNowPayment\Dto\Transaction;
 
 final readonly class TransactionBuyerDto
 {

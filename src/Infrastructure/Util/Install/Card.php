@@ -9,11 +9,11 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Infrastructure\Util\Install;
+namespace Crehler\PayNowPayment\Infrastructure\Util\Install;
 
 use Crehler\PaymentBundle\Infrastructure\Util\Lifecycle\{ShopwarePaymentMethod, ShopwarePaymentMethodDescription};
-use Crehler\PayNow\Constant\Methods;
-use Crehler\PayNow\Handler\CardHandler;
+use Crehler\PayNowPayment\Constant\Methods;
+use Crehler\PayNowPayment\Handler\CardHandler;
 
 final class Card extends ShopwarePaymentMethod
 {

@@ -9,10 +9,10 @@ declare(strict_types=1);
  * support@crehler.com
  */
 
-namespace Crehler\PayNow\Infrastructure\Util\Install;
+namespace Crehler\PayNowPayment\Infrastructure\Util\Install;
 
 use Crehler\PaymentBundle\Domain\Port\PaymentGatewayCurrencyProviderInterface;
-use Crehler\PayNow\Constant\Currency;
+use Crehler\PayNowPayment\Constant\Currency;
 
 final readonly class SupportCurrency implements PaymentGatewayCurrencyProviderInterface
 {
