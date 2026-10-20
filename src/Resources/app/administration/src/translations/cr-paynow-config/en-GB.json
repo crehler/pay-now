@@ -1,14 +1,15 @@
 {
     "cr-paynow": {
         "callbackUrls": {
-            "intro": "Copy the addresses below and paste them into the PayNow merchant panel (Settings → Shops and payment points → shop configuration). They are built automatically from your shop URL.",
+            "intro": "Copy the addresses below and paste them into the PayNow merchant panel (Settings → Shops and payment points → shop configuration). They are built from a sales channel domain, including its path, e.g. /en.",
             "notificationLabel": "Notification address",
-            "notificationHelp": "Webhook that PayNow calls with payment statuses. Required for orders to be marked as paid automatically.",
+            "notificationHelp": "Webhook that PayNow calls with payment statuses. Required for orders to be marked as paid automatically. Any shop domain works (including a /pl or /en prefix), but not the bare host when every domain has a prefix. Use the same address in the production and the sandbox panel.",
             "returnLabel": "Return address",
-            "returnHelp": "Address the customer returns to from the PayNow page after finishing the payment.",
+            "returnHelp": "Fallback only — with every payment the plugin sends its own return address on the domain the customer ordered from.",
             "copy": "Copy",
             "copied": "Copied to clipboard",
-            "copyError": "Copy failed — please copy the address manually"
+            "copyError": "Copy failed — please copy the address manually",
+            "domainLoadError": "Could not read the sales channel domains, so the addresses cannot be shown. Enter your shop domain including its path in the PayNow panel (e.g. https://your-shop.com/en/payment/notification) or reload the page."
         }
     }
 }

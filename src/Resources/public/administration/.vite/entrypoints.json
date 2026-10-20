@@ -3,11 +3,11 @@
   "entryPoints": {
     "crehler-pay-now-payment": {
       "css": [
-        "/bundles/crehlerpaynowpayment/administration/assets/crehler-pay-now-payment-DaHFxtQa.css"
+        "/bundles/crehlerpaynowpayment/administration/assets/crehler-pay-now-payment-DtnY-rIO.css"
       ],
       "dynamic": [],
       "js": [
-        "/bundles/crehlerpaynowpayment/administration/assets/crehler-pay-now-payment-BESxka9C.js"
+        "/bundles/crehlerpaynowpayment/administration/assets/crehler-pay-now-payment-D4qAbi4t.js"
       ],
       "legacy": false,
       "preload": []

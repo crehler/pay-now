@@ -2,6 +2,8 @@
 <div class="cr-paynow-callback-urls">
     <p class="cr-paynow-callback-urls__intro">{{ $tc('cr-paynow.callbackUrls.intro') }}</p>
 
+    <p v-if="domainLoadFailed" class="cr-paynow-callback-urls__error">{{ $tc('cr-paynow.callbackUrls.domainLoadError') }}</p>
+
     <div v-for="item in urls" :key="item.key" class="cr-paynow-callback-urls__row">
         <label class="cr-paynow-callback-urls__label">{{ item.label }}</label>
         <div class="cr-paynow-callback-urls__field">

@@ -88,7 +88,7 @@ Pod każdą kartą znajduje się przycisk testu połączenia. Kliknij go po wpis
 
 ## Krok 3 — Uzupełnij adresy w panelu PayNow
 
-PayNow musi wiedzieć, **dokąd wysyłać powiadomienia** o statusie płatności i **dokąd wraca klient** po płatności. Oba adresy wtyczka **wylicza automatycznie** na podstawie adresu Twojego sklepu i pokazuje w konfiguracji wtyczki w karcie **„Adresy do panelu PayNow"** (na górze konfiguracji) — jako pola tylko do odczytu, z przyciskiem **„Kopiuj"**.
+PayNow musi wiedzieć, **dokąd wysyłać powiadomienia** o statusie płatności i **dokąd wraca klient** po płatności. Oba adresy wtyczka **wylicza automatycznie** na podstawie domeny kanału sprzedaży (razem z jej ścieżką, np. `/pl`) i pokazuje w konfiguracji wtyczki w karcie **„Adresy do panelu PayNow"** (na górze konfiguracji) — jako pola tylko do odczytu, z przyciskiem **„Kopiuj"**.
 
 | Adres | Wartość (przykład) | Gdzie wkleić w panelu PayNow |
 |---|---|---|
@@ -104,6 +104,12 @@ PayNow musi wiedzieć, **dokąd wysyłać powiadomienia** o statusie płatności
 3. Wklej **Adres powiadomień** w pole adresu powiadomień/webhooka oraz **Adres powrotu** w pole adresu powrotu. Zapisz w panelu PayNow.
 
 ![Panel PayNow — pola Adres powiadomień i Adres powrotu w konfiguracji sklepu (adresy wklejone z konfiguracji wtyczki)](images/21-paynow-panel-addresses.png)
+
+> 🌐 **Domeny z prefiksem języka.** Jeśli domeny Twoich kanałów sprzedaży mają ścieżkę (np. `https://twoj-sklep.pl/pl`, `https://twoj-sklep.pl/en`), adres powiadomień **musi ją zawierać**: `https://twoj-sklep.pl/pl/payment/notification`. Adres bez prefiksu nie trafi wtedy do żadnego kanału sprzedaży. Nie ma znaczenia, którą domenę sklepu wybierzesz — wtyczka rozpoznaje płatność po jej identyfikatorze, nie po kanale.
+>
+> 🧪 **Sandbox i produkcja — ten sam adres.** Adres powiadomień wpisujesz osobno w panelu produkcyjnym i sandboxowym PayNow, ale wartość jest identyczna.
+>
+> ↩️ **Adres powrotu w panelu jest tylko zapasowy.** Przy każdej płatności wtyczka sama przekazuje PayNow adres powrotu z domeny, na której klient złożył zamówienie.
 
 > ⚠️ **Adres powiadomień jest kluczowy.** To na ten webhook PayNow wysyła potwierdzenie płatności — bez poprawnie ustawionego adresu zamówienia **nie zmienią statusu na „Opłacone"**, nawet jeśli klient faktycznie zapłaci.
 

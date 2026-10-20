@@ -1,14 +1,15 @@
 {
     "cr-paynow": {
         "callbackUrls": {
-            "intro": "Skopiuj poniższe adresy i wklej je w panelu PayNow (Ustawienia → Sklepy i punkty płatności → konfiguracja sklepu). Są budowane automatycznie na podstawie adresu Twojego sklepu.",
+            "intro": "Skopiuj poniższe adresy i wklej je w panelu PayNow (Ustawienia → Sklepy i punkty płatności → konfiguracja sklepu). Są budowane z domeny kanału sprzedaży — razem z jej ścieżką, np. /pl.",
             "notificationLabel": "Adres powiadomień (notyfikacji)",
-            "notificationHelp": "Webhook, na który PayNow wysyła statusy płatności. Wymagany, aby zamówienia automatycznie zmieniały status na opłacone.",
+            "notificationHelp": "Webhook, na który PayNow wysyła statusy płatności. Wymagany, aby zamówienia automatycznie zmieniały status na opłacone. Pasuje dowolna domena sklepu (także z prefiksem /pl, /en), ale nie sam adres serwera, jeśli wszystkie domeny mają prefiks. Ten sam adres wpisz w panelu produkcyjnym i sandboxowym.",
             "returnLabel": "Adres powrotu",
-            "returnHelp": "Adres, na który klient wraca ze strony PayNow po zakończeniu płatności.",
+            "returnHelp": "Adres zapasowy — wtyczka przy każdej płatności sama wysyła adres powrotu z domeny, na której klient złożył zamówienie.",
             "copy": "Kopiuj",
             "copied": "Skopiowano do schowka",
-            "copyError": "Nie udało się skopiować — skopiuj adres ręcznie"
+            "copyError": "Nie udało się skopiować — skopiuj adres ręcznie",
+            "domainLoadError": "Nie udało się odczytać domen kanałów sprzedaży, więc nie da się podać adresów. Wpisz w panelu PayNow adres domeny sklepu razem z jej ścieżką (np. https://twoj-sklep.pl/pl/payment/notification) albo odśwież stronę."
         }
     }
 }

@@ -6,6 +6,17 @@
 
 ## Unreleased
 
+### Fixed
+
+- **Notification address in the plugin config pointed at the bare host (WT-1029).** The
+  „Adresy do panelu PayNow" card built both addresses from the admin's
+  `window.location.origin`. A shop whose sales channel domains all carry a path suffix
+  (`/pl`, `/en`) has no channel at the bare host, so the suggested
+  `https://shop/payment/notification` matched nothing. The card now builds the addresses from
+  a storefront sales channel domain, path included, and says that the same address serves the
+  production and the sandbox panel. The return address the plugin sends with each payment is
+  fixed in crehler/payment-bundle 6.6.1.
+
 ### Changed — breaking
 
 - **Technical name `CrehlerPayNow` → `CrehlerPayNowPayment`, namespace `Crehler\PayNow` →
