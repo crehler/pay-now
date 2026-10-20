@@ -1,3 +1,0 @@
-# Zależności do budowania dokumentacji MkDocs.
-# Lokalnie:  pip install -r docs/requirements.txt && mkdocs serve
-mkdocs-material>=9.5
