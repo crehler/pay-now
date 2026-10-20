@@ -1081,7 +1081,7 @@
 <p><img alt="Komunikat sukcesu po teście połączenia — potwierdzenie poprawnych danych" src="../images/07-config-test-connection.png" /></p>
 <hr />
 <h2 id="krok-3-uzupenij-adresy-w-panelu-paynow">Krok 3 — Uzupełnij adresy w panelu PayNow<a class="headerlink" href="#krok-3-uzupenij-adresy-w-panelu-paynow" title="Permanent link">&para;</a></h2>
-<p>PayNow musi wiedzieć, <strong>dokąd wysyłać powiadomienia</strong> o statusie płatności i <strong>dokąd wraca klient</strong> po płatności. Oba adresy wtyczka <strong>wylicza automatycznie</strong> na podstawie adresu Twojego sklepu i pokazuje w konfiguracji wtyczki w karcie <strong>„Adresy do panelu PayNow"</strong> (na górze konfiguracji) — jako pola tylko do odczytu, z przyciskiem <strong>„Kopiuj"</strong>.</p>
+<p>PayNow musi wiedzieć, <strong>dokąd wysyłać powiadomienia</strong> o statusie płatności i <strong>dokąd wraca klient</strong> po płatności. Oba adresy wtyczka <strong>wylicza automatycznie</strong> na podstawie domeny kanału sprzedaży (razem z jej ścieżką, np. <code>/pl</code>) i pokazuje w konfiguracji wtyczki w karcie <strong>„Adresy do panelu PayNow"</strong> (na górze konfiguracji) — jako pola tylko do odczytu, z przyciskiem <strong>„Kopiuj"</strong>.</p>
 <table>
 <thead>
 <tr>
@@ -1112,6 +1112,9 @@
 </ol>
 <p><img alt="Panel PayNow — pola Adres powiadomień i Adres powrotu w konfiguracji sklepu (adresy wklejone z konfiguracji wtyczki)" src="../images/21-paynow-panel-addresses.png" /></p>
 <blockquote>
+<p>🌐 <strong>Domeny z prefiksem języka.</strong> Jeśli domeny Twoich kanałów sprzedaży mają ścieżkę (np. <code>https://twoj-sklep.pl/pl</code>, <code>https://twoj-sklep.pl/en</code>), adres powiadomień <strong>musi ją zawierać</strong>: <code>https://twoj-sklep.pl/pl/payment/notification</code>. Adres bez prefiksu nie trafi wtedy do żadnego kanału sprzedaży. Nie ma znaczenia, którą domenę sklepu wybierzesz — wtyczka rozpoznaje płatność po jej identyfikatorze, nie po kanale.</p>
+<p>🧪 <strong>Sandbox i produkcja — ten sam adres.</strong> Adres powiadomień wpisujesz osobno w panelu produkcyjnym i sandboxowym PayNow, ale wartość jest identyczna.</p>
+<p>↩️ <strong>Adres powrotu w panelu jest tylko zapasowy.</strong> Przy każdej płatności wtyczka sama przekazuje PayNow adres powrotu z domeny, na której klient złożył zamówienie.</p>
 <p>⚠️ <strong>Adres powiadomień jest kluczowy.</strong> To na ten webhook PayNow wysyła potwierdzenie płatności — bez poprawnie ustawionego adresu zamówienia <strong>nie zmienią statusu na „Opłacone"</strong>, nawet jeśli klient faktycznie zapłaci.</p>
 </blockquote>
 <hr />
