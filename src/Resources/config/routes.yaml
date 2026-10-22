@@ -1,0 +1,7 @@
+api:
+  resource: '../../Api/Controller'
+  type: attribute
+
+storefront:
+  resource: '../../Storefront/Controller'
+  type: attribute

@@ -1,15 +1,32 @@
 {
     "cr-paynow": {
         "callbackUrls": {
-            "intro": "Copy the addresses below and paste them into the PayNow merchant panel (Settings → Shops and payment points → shop configuration). They are built from a sales channel domain, including its path, e.g. /en.",
+            "intro": "The addresses PayNow sends payment notifications to and returns customers to. The plugin sets them in PayNow itself after the configuration is saved with API keys — for production and sandbox. They are built from a sales channel domain, including its path (e.g. /en).",
             "notificationLabel": "Notification address",
-            "notificationHelp": "Webhook that PayNow calls with payment statuses. Required for orders to be marked as paid automatically. Any shop domain works (including a /pl or /en prefix), but not the bare host when every domain has a prefix. Use the same address in the production and the sandbox panel.",
+            "notificationHelp": "Webhook PayNow sends payment statuses to — without it orders never change to paid. Any shop domain works (including a /pl or /de prefix); the production and the sandbox panel use the same one.",
             "returnLabel": "Return address",
             "returnHelp": "Fallback only — with every payment the plugin sends its own return address on the domain the customer ordered from.",
             "copy": "Copy",
             "copied": "Copied to clipboard",
             "copyError": "Copy failed — please copy the address manually",
-            "domainLoadError": "Could not read the sales channel domains, so the addresses cannot be shown. Enter your shop domain including its path in the PayNow panel (e.g. https://your-shop.com/en/payment/notification) or reload the page."
+            "domainLoadError": "The addresses could not be computed. Enter your shop domain including its path in the PayNow panel (e.g. https://your-shop.com/en/payment/notification) or reload the page.",
+            "noDomain": "This sales channel has no storefront domain, so no addresses can be built. Add a domain in the sales channel settings.",
+            "configure": "Set addresses in PayNow",
+            "configuring": "Setting…",
+            "configureHelp": "Sends the addresses above to PayNow with the keys in the form (unsaved ones too). Do it after a domain change or when order statuses do not update. If it fails, copy the addresses into the PayNow panel (Settings → Shops and payment points).",
+            "configureOk": "Addresses set in PayNow.",
+            "configureFailed": "The addresses could not be set in PayNow for at least one environment — details below.",
+            "configureNoKeys": "No API keys — enter production or sandbox keys.",
+            "configureError": "Could not reach the shop server.",
+            "environment": {
+                "live": "Production",
+                "sandbox": "Sandbox"
+            },
+            "status": {
+                "ok": "set",
+                "skipped": "skipped (no keys)",
+                "failed": "failed"
+            }
         }
     }
 }

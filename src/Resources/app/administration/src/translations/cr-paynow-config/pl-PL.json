@@ -1,15 +1,32 @@
 {
     "cr-paynow": {
         "callbackUrls": {
-            "intro": "Skopiuj poniższe adresy i wklej je w panelu PayNow (Ustawienia → Sklepy i punkty płatności → konfiguracja sklepu). Są budowane z domeny kanału sprzedaży — razem z jej ścieżką, np. /pl.",
+            "intro": "Adresy, pod które PayNow wysyła powiadomienia o płatnościach i kieruje klientów. Wtyczka sama ustawia je w PayNow po zapisaniu konfiguracji z kluczami API — dla produkcji i sandboxu. Są budowane z domeny kanału sprzedaży, razem z jej ścieżką (np. /pl).",
             "notificationLabel": "Adres powiadomień (notyfikacji)",
-            "notificationHelp": "Webhook, na który PayNow wysyła statusy płatności. Wymagany, aby zamówienia automatycznie zmieniały status na opłacone. Pasuje dowolna domena sklepu (także z prefiksem /pl, /en), ale nie sam adres serwera, jeśli wszystkie domeny mają prefiks. Ten sam adres wpisz w panelu produkcyjnym i sandboxowym.",
+            "notificationHelp": "Webhook, na który PayNow wysyła statusy płatności — bez niego zamówienia nie zmienią statusu na opłacone. Pasuje dowolna domena sklepu (także z prefiksem /pl, /de); w panelu produkcyjnym i sandboxowym jest ten sam.",
             "returnLabel": "Adres powrotu",
-            "returnHelp": "Adres zapasowy — wtyczka przy każdej płatności sama wysyła adres powrotu z domeny, na której klient złożył zamówienie.",
+            "returnHelp": "Adres zapasowy — przy każdej płatności wtyczka i tak wysyła adres powrotu z domeny, na której klient złożył zamówienie.",
             "copy": "Kopiuj",
             "copied": "Skopiowano do schowka",
             "copyError": "Nie udało się skopiować — skopiuj adres ręcznie",
-            "domainLoadError": "Nie udało się odczytać domen kanałów sprzedaży, więc nie da się podać adresów. Wpisz w panelu PayNow adres domeny sklepu razem z jej ścieżką (np. https://twoj-sklep.pl/pl/payment/notification) albo odśwież stronę."
+            "domainLoadError": "Nie udało się wyliczyć adresów. Wpisz w panelu PayNow adres domeny sklepu razem z jej ścieżką (np. https://twoj-sklep.pl/pl/payment/notification) albo odśwież stronę.",
+            "noDomain": "Ten kanał sprzedaży nie ma domeny Storefrontu, więc nie da się zbudować adresów. Dodaj domenę w ustawieniach kanału sprzedaży.",
+            "configure": "Ustaw adresy w PayNow",
+            "configuring": "Ustawianie…",
+            "configureHelp": "Wysyła powyższe adresy do PayNow kluczami wpisanymi w formularzu (także niezapisanymi). Zrób to po zmianie domeny albo gdy statusy zamówień się nie zmieniają. Jeśli się nie uda — skopiuj adresy i wklej je w panelu PayNow (Ustawienia → Sklepy i punkty płatności).",
+            "configureOk": "Adresy ustawione w PayNow.",
+            "configureFailed": "Nie udało się ustawić adresów w PayNow dla co najmniej jednego środowiska — szczegóły poniżej.",
+            "configureNoKeys": "Brak kluczy API — wpisz klucze produkcyjne lub sandbox.",
+            "configureError": "Nie udało się połączyć z serwerem sklepu.",
+            "environment": {
+                "live": "Produkcja",
+                "sandbox": "Sandbox"
+            },
+            "status": {
+                "ok": "ustawiono",
+                "skipped": "pominięto (brak kluczy)",
+                "failed": "błąd"
+            }
         }
     }
 }

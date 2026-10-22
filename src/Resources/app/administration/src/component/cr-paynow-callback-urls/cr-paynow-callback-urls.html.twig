@@ -2,7 +2,8 @@
 <div class="cr-paynow-callback-urls">
     <p class="cr-paynow-callback-urls__intro">{{ $tc('cr-paynow.callbackUrls.intro') }}</p>
 
-    <p v-if="domainLoadFailed" class="cr-paynow-callback-urls__error">{{ $tc('cr-paynow.callbackUrls.domainLoadError') }}</p>
+    <p v-if="loadFailed" class="cr-paynow-callback-urls__error">{{ $tc('cr-paynow.callbackUrls.domainLoadError') }}</p>
+    <p v-if="noDomain" class="cr-paynow-callback-urls__error">{{ $tc('cr-paynow.callbackUrls.noDomain') }}</p>
 
     <div v-for="item in urls" :key="item.key" class="cr-paynow-callback-urls__row">
         <label class="cr-paynow-callback-urls__label">{{ item.label }}</label>
@@ -27,6 +28,29 @@
             </button>
         </div>
         <p class="cr-paynow-callback-urls__help">{{ item.help }}</p>
+    </div>
+
+    <div v-if="shopUrls" class="cr-paynow-callback-urls__configure">
+        <button
+            type="button"
+            class="cr-paynow-callback-urls__configure-button"
+            :disabled="isConfiguring"
+            @click="onConfigure"
+        >
+            {{ isConfiguring ? $tc('cr-paynow.callbackUrls.configuring') : $tc('cr-paynow.callbackUrls.configure') }}
+        </button>
+        <p class="cr-paynow-callback-urls__help">{{ $tc('cr-paynow.callbackUrls.configureHelp') }}</p>
+
+        <ul v-if="results.length" class="cr-paynow-callback-urls__results">
+            <li
+                v-for="result in results"
+                :key="result.environment"
+                :class="`cr-paynow-callback-urls__result cr-paynow-callback-urls__result--${result.status}`"
+            >
+                <strong>{{ environmentLabel(result.environment) }}:</strong>
+                {{ statusLabel(result.status) }}<template v-if="result.message"> — {{ result.message }}</template>
+            </li>
+        </ul>
     </div>
 </div>
 {% endblock %}

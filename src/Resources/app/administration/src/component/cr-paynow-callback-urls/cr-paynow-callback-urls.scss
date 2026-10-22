@@ -73,4 +73,53 @@
         background: #fbe5ea;
         border-radius: 4px;
     }
+
+    &__configure {
+        margin-top: 22px;
+        padding-top: 18px;
+        border-top: 1px solid #d1d9e0;
+    }
+
+    &__configure-button {
+        padding: 8px 16px;
+        border: 1px solid #189eff;
+        border-radius: 4px;
+        background: #189eff;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+
+        &:hover:not(:disabled) {
+            background: #0870ff;
+            border-color: #0870ff;
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: default;
+        }
+    }
+
+    &__results {
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+        font-size: 13px;
+    }
+
+    &__result {
+        margin-bottom: 4px;
+
+        &--ok {
+            color: #37d046;
+        }
+
+        &--skipped {
+            color: #758ca3;
+        }
+
+        &--failed {
+            color: #de294c;
+        }
+    }
 }

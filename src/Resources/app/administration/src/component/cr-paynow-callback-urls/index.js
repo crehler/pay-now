@@ -2,40 +2,37 @@ import template from './cr-paynow-callback-urls.html.twig';
 import './cr-paynow-callback-urls.scss';
 
 const { Component, Mixin } = Shopware;
-const { Criteria } = Shopware.Data;
 
-// Defaults::SALES_CHANNEL_TYPE_STOREFRONT
-const STOREFRONT_TYPE_ID = '8a243080f92e4c719546314b577cf82b';
+const CONFIG_DOMAIN = 'CrehlerPayNowPayment.config';
+const MAX_PARENT_TRAVERSAL_DEPTH = 25;
 
 /**
- * Read-only, copyable callback addresses that the merchant must paste into the
- * PayNow merchant panel: the notification (webhook) URL and the return URL.
+ * "PayNow panel addresses" card of the plugin configuration (config.xml
+ * <component name="cr-paynow-callback-urls">).
  *
- * Both are built from a storefront sales channel DOMAIN, path suffix included:
- *   - notification: {domain}/payment/notification  (shared CrehlerPaymentBundle webhook)
- *   - return:       {domain}
+ * The addresses come from the backend (GET /api/_action/crehler-paynow/shop-urls) — the
+ * same resolver the configuration save uses to write them into PayNow, so the card cannot
+ * disagree with what was sent. They are built from a storefront sales channel domain,
+ * path included (/pl, /de), for the sales channel selected in the config page.
  *
- * Not from window.location.origin: a shop whose domains carry a path suffix
- * (https://shop/pl, https://shop/en) has no sales channel at the bare host, so
- * https://shop/payment/notification matches nothing there (WT-1029). Any storefront
- * domain works — the webhook finds the transaction by the gateway id, not by the
- * channel it arrives on. The origin is only the fallback when the shop has no storefront
- * domain at all; when the lookup itself fails (e.g. missing ACL) no address is shown,
- * because the origin is exactly the address that breaks suffixed shops.
- *
- * Display-only — rendered in config.xml via <component name="cr-paynow-callback-urls">;
- * it persists nothing.
+ * The plugin writes them into PayNow itself after every save that touches credentials
+ * (ShopUrlsSubscriber). "Set in PayNow" does the same on demand — with the UNSAVED form
+ * credentials, like the connection test — and shows the result per environment. Copying
+ * stays as the fallback when the API call is not possible.
  */
 Component.register('cr-paynow-callback-urls', {
     template,
 
     inheritAttrs: false,
 
+    inject: ['CrPaynowShopUrlsService'],
+
+    // The bundle's cr-system-config-reader mixin would do the reading below, but it ships
+    // in the bundle's own admin build: Mixin.getByName() runs when this file is evaluated,
+    // and the load order of the two builds is not guaranteed.
     mixins: [
         Mixin.getByName('notification'),
     ],
-
-    inject: ['repositoryFactory'],
 
     props: {
         // Bound by sw-form-field-renderer from the config.xml element name (unused — display only).
@@ -48,27 +45,25 @@ Component.register('cr-paynow-callback-urls', {
 
     data() {
         return {
-            domainUrl: null,
+            shopUrls: null,
             isLoading: true,
-            domainLoadFailed: false,
+            loadFailed: false,
+            isConfiguring: false,
+            results: [],
         };
     },
 
     computed: {
-        baseUrl() {
-            return (this.domainUrl ?? window.location.origin).replace(/\/+$/, '');
+        selectedSalesChannelId() {
+            return this.findSystemConfigHost()?.currentSalesChannelId ?? null;
         },
 
-        notificationUrl() {
-            return `${this.baseUrl}/payment/notification`;
-        },
-
-        returnUrl() {
-            return this.baseUrl;
+        noDomain() {
+            return !this.isLoading && !this.loadFailed && this.shopUrls === null;
         },
 
         urls() {
-            if (this.isLoading || this.domainLoadFailed) {
+            if (!this.shopUrls) {
                 return [];
             }
 
@@ -77,39 +72,114 @@ Component.register('cr-paynow-callback-urls', {
                     key: 'notification',
                     label: this.$tc('cr-paynow.callbackUrls.notificationLabel'),
                     help: this.$tc('cr-paynow.callbackUrls.notificationHelp'),
-                    value: this.notificationUrl,
+                    value: this.shopUrls.notificationUrl,
                 },
                 {
                     key: 'return',
                     label: this.$tc('cr-paynow.callbackUrls.returnLabel'),
                     help: this.$tc('cr-paynow.callbackUrls.returnHelp'),
-                    value: this.returnUrl,
+                    value: this.shopUrls.returnUrl,
                 },
             ];
         },
     },
 
+    watch: {
+        selectedSalesChannelId() {
+            this.results = [];
+            this.loadUrls();
+        },
+    },
+
     created() {
-        this.loadDomainUrl();
+        this.loadUrls();
     },
 
     methods: {
-        async loadDomainUrl() {
-            const criteria = new Criteria(1, 1);
-            criteria.addFilter(Criteria.equals('salesChannel.typeId', STOREFRONT_TYPE_ID));
-            criteria.addSorting(Criteria.sort('url', 'ASC'));
+        /**
+         * A <component> field only gets its own props; the sibling values (credentials,
+         * also unsaved) and the selected sales channel live on the sw-system-config host.
+         */
+        findSystemConfigHost() {
+            let parent = this.$parent;
+
+            for (let depth = 0; parent && depth < MAX_PARENT_TRAVERSAL_DEPTH; depth += 1) {
+                if (parent.actualConfigData !== undefined && parent.currentSalesChannelId !== undefined) {
+                    return parent;
+                }
+
+                parent = parent.$parent;
+            }
+
+            return null;
+        },
+
+        readConfigSlice() {
+            const host = this.findSystemConfigHost();
+            const salesChannelId = host?.currentSalesChannelId ?? null;
+            const all = host?.actualConfigData?.[salesChannelId] ?? {};
+            const prefix = `${CONFIG_DOMAIN}.`;
+            const config = {};
+
+            Object.keys(all).forEach((key) => {
+                if (key.startsWith(prefix)) {
+                    config[key.slice(prefix.length)] = all[key];
+                }
+            });
+
+            return { config, salesChannelId };
+        },
+
+        async loadUrls() {
+            this.isLoading = true;
 
             try {
-                const domains = await this.repositoryFactory.create('sales_channel_domain').search(criteria);
-                this.domainUrl = domains.first()?.url ?? null;
-                this.domainLoadFailed = false;
+                const response = await this.CrPaynowShopUrlsService.getUrls(this.selectedSalesChannelId);
+                this.shopUrls = response?.urls ?? null;
+                this.loadFailed = false;
             } catch (e) {
-                this.domainUrl = null;
-                this.domainLoadFailed = true;
-                this.createNotificationError({ message: this.$tc('cr-paynow.callbackUrls.domainLoadError') });
+                this.shopUrls = null;
+                this.loadFailed = true;
             } finally {
                 this.isLoading = false;
             }
+        },
+
+        async onConfigure() {
+            this.isConfiguring = true;
+            this.results = [];
+
+            try {
+                const { config, salesChannelId } = this.readConfigSlice();
+                const report = await this.CrPaynowShopUrlsService.configure({ salesChannelId, config });
+
+                this.results = report?.results ?? [];
+                this.notifyAboutResults();
+            } catch (e) {
+                this.createNotificationError({ message: this.$tc('cr-paynow.callbackUrls.configureError') });
+            } finally {
+                this.isConfiguring = false;
+            }
+        },
+
+        notifyAboutResults() {
+            const statuses = this.results.map((result) => result.status);
+
+            if (statuses.includes('failed')) {
+                this.createNotificationError({ message: this.$tc('cr-paynow.callbackUrls.configureFailed') });
+            } else if (statuses.includes('ok')) {
+                this.createNotificationSuccess({ message: this.$tc('cr-paynow.callbackUrls.configureOk') });
+            } else {
+                this.createNotificationWarning({ message: this.$tc('cr-paynow.callbackUrls.configureNoKeys') });
+            }
+        },
+
+        environmentLabel(environment) {
+            return this.$tc(`cr-paynow.callbackUrls.environment.${environment}`);
+        },
+
+        statusLabel(status) {
+            return this.$tc(`cr-paynow.callbackUrls.status.${status}`);
         },
 
         async onCopy(value) {

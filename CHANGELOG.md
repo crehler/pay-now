@@ -6,6 +6,36 @@
 
 ## Unreleased
 
+### Added
+
+- **The plugin sets its notification and return address in PayNow itself (WT-1031).** PayNow
+  takes the webhook address from the payment point's configuration only — the payment request
+  has no field for it — so it had to be pasted into the PayNow panel by hand. After every
+  configuration save touching the API keys or the sandbox switch, the plugin now calls
+  `PATCH /v3/configuration/shop/urls` for each environment that has keys (production and
+  sandbox), like PayNow's own plugins do. A failed call is logged and never blocks the save.
+- **„Adresy do panelu PayNow" card:** addresses computed on the backend for the selected sales
+  channel, a „Ustaw adresy w PayNow" button with the result per environment (works with
+  unsaved keys), copying kept as the fallback.
+- **Legacy webhook `/paynowpayment/notification`** (the 4.x address) is handled as an alias of
+  `/payment/notification`. Shops updated from 4.x keep that address in the PayNow panel; every
+  notification sent there answered 404 and no order changed status.
+
+### Changed
+
+- Addresses keep the sales channel domain's path (`https://shop/pl/payment/notification`);
+  a domain without a path is preferred, then the one in the channel's default language.
+- **PayNow's GDPR notice is shown, not ticked (WT-1030).** The data-processing notices from
+  `GET /v3/payments/dataprocessing/notices` are mBank's information obligation, not a consent,
+  yet they were a required checkbox whose label was the notice body — without its title, so the
+  text began mid-sentence ("Funkcję Inspektora ochrony danych…"). They are now an informational
+  disclosure: the title in one line, every notice in full behind "Read more" (bundle 6.6.2;
+  with 6.6.1 the same content appears in the collapsible block). All notices are shown, not
+  only the first, and PayPo shows them too — PayNow requires them for White Label payments.
+- **Notices cached for 24 hours** per sales channel, locale and environment, like PayNow's PrestaShop
+  plugin; the checkout confirm page no longer calls the gateway on every visit. A failed call
+  is not cached.
+
 ### Fixed
 
 - **Notification address in the plugin config pointed at the bare host (WT-1029).** The
